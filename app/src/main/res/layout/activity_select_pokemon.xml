@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.trainer.SelectPokemonActivity"
+        android:background="@drawable/bg">
+
+    <TextView
+            android:id="@+id/txt_gretting"
+            style="@style/text_white_big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_32dp"
+            android:layout_marginRight="@dimen/margin_32dp"
+            android:layout_marginTop="90dp"
+            android:text="@string/msg_select_gretting"/>
+
+    <TextView
+            android:id="@+id/txt_type_pokemon"
+            style="@style/text_white_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_32dp"
+            android:layout_marginRight="@dimen/margin_32dp"
+            android:layout_centerVertical="true"
+            android:text="@string/msg_select_favorite"/>
+
+    <Spinner
+            android:id="@+id/spinner_types"
+            style="@style/spinner_item_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:layout_marginLeft="@dimen/margin_32dp"
+            android:layout_marginRight="@dimen/margin_32dp"
+            android:labelFor="@+id/txt_type_pokemon"
+            android:layout_below="@+id/txt_type_pokemon"/>
+
+    <ImageView
+            android:id="@+id/img_register_trainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:background="@drawable/next"
+            android:contentDescription="@string/app_name"/>
+
+</RelativeLayout>
