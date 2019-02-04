@@ -4,6 +4,8 @@ import android.content.Context
 import com.vicpin.krealmextensions.transaction
 import com.vortigo.pokemonfinder.data.model.PokemonTable
 import com.vortigo.pokemonfinder.data.model.TypeTable
+import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
+import com.vortigo.pokemonfinder.helper.Util
 import io.realm.Realm
 import org.json.JSONObject
 
@@ -26,6 +28,8 @@ class PokemonSeed(
             createPokemons()
             createTypes()
         }
+
+        PokemonPreference().setInitData(context, Util.INIT_DATA)
     }
 
     private fun loadJSON(jsonFile: String): String {

@@ -2,6 +2,7 @@ package com.vortigo.pokemonfinder
 
 import android.app.Application
 import com.vortigo.pokemonfinder.data.db.PokemonSeed
+import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
 import io.realm.Realm
 
 /**
@@ -15,8 +16,21 @@ class PokemonFinderApp: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initPref()
+
+        initRealm()
+
+        if (!PokemonPreference().getInitDate(this).isEmpty()) {
+            makeSeedData()
+        }
+    }
+
+    private fun initRealm() {
         Realm.init(this)
-        makeSeedData()
+    }
+
+    private fun initPref() {
+        PokemonPreference().prefs(this)
     }
 
     private fun makeSeedData() {
