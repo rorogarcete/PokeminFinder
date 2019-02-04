@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Dimens for text-->
+    <dimen name="text_size_default">14dp</dimen>
+    <dimen name="text_size_16">16dp</dimen>
+    <dimen name="text_size_18">18dp</dimen>
+    <dimen name="text_size_22">22dp</dimen>
+    <dimen name="text_size_26">26dp</dimen>
+    <dimen name="text_size_28">28dp</dimen>
+    <dimen name="text_size_30">30dp</dimen>
+
+    <!--Dimens for imageView-->
+    <dimen name="img_dimen">120dp</dimen>
+
+    <!--Dimens for margins-->
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+
+    <!--Dimens for paddings-->
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+</resources>

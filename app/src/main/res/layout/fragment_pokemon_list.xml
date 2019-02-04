@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/margin_16dp"
+        android:orientation="vertical">
+
+    <RelativeLayout
+            android:id="@+id/container_labels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_16dp">
+
+            <TextView
+                    android:id="@+id/txt_pokemon_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/msg_title_pokemon"/>
+
+            <LinearLayout
+                    android:id="@+id/container_ordered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true">
+
+                <TextView
+                        android:id="@+id/txt_pokemon_ordered_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8dp"
+                        android:layout_marginRight="@dimen/margin_8dp"
+                        android:text="@string/msg_name_pokemon"/>
+
+                <ImageView
+                        android:id="@+id/img_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="@dimen/margin_8dp"
+                        android:layout_marginRight="@dimen/margin_8dp"
+                        android:contentDescription="@string/app_name"
+                        android:background="@drawable/arrow"/>
+
+            </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_pokemon"
+            android:name="com.vortigo.pokemonfinder.ui.pokemon.PokemonFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:context=".ui.pokemon.list.PokemonFragment"
+            tools:listitem="@layout/fragment_pokemon"/>
+
+
+</LinearLayout>
+

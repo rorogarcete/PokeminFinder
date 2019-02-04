@@ -1,11 +1,52 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--Style for TextView-->
+    <style name="text_white_bold">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="text_white_big">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_26</item>
+    </style>
+
+    <style name="text_white_medium">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+    </style>
+
+    <!--Style for EditText-->
+    <style name="edt_default_style" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
+    </style>
+
+    <!--Style for Button-->
+    <style name="button_default">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:background">@drawable/button_border_default</item>
+    </style>
+
+    <!--Style for Spinner-->
+    <style name="spinner_item_style" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <!--<item name="android:background">@drawable/spinner_bg</item>-->
+        <item name="android:paddingTop">@dimen/padding_8dp</item>
+        <item name="android:paddingBottom">@dimen/padding_8dp</item>
     </style>
 
 </resources>
