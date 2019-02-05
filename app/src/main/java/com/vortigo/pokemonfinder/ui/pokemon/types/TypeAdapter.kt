@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.vortigo.pokemonfinder.R
-import com.vortigo.pokemonfinder.domain.model.Type
+import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment.OnListFragmentInteractionListener
 
 import kotlinx.android.synthetic.main.fragment_type.view.*

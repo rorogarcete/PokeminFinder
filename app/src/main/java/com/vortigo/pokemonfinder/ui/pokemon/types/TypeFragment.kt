@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.vortigo.pokemonfinder.R
-import com.vortigo.pokemonfinder.domain.model.Type
+import com.vortigo.pokemonfinder.models.Type
 
 /**
  * @author rorogarcete
