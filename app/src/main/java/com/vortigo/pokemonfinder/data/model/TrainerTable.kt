@@ -1,6 +1,5 @@
 package com.vortigo.pokemonfinder.data.model
 
-import io.realm.RealmList
 import io.realm.RealmObject
 
 /**
@@ -11,5 +10,6 @@ import io.realm.RealmObject
  */
 open class TrainerTable(
     var name: String = "",
-    var typePokemonFavorite: RealmList<TypeTable> = RealmList()
+    var typePokemonFavorite: String = "",
+    var typeImageUrl: String = ""
 ): RealmObject()

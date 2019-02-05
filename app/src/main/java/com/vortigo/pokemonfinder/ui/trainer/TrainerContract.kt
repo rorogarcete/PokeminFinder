@@ -1,7 +1,7 @@
 package com.vortigo.pokemonfinder.ui.trainer
 
-import com.vortigo.pokemonfinder.domain.model.Trainer
-import com.vortigo.pokemonfinder.domain.model.Type
+import com.vortigo.pokemonfinder.models.Trainer
+import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.base.Presenter
 import com.vortigo.pokemonfinder.ui.base.View
 
