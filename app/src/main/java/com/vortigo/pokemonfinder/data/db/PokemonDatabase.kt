@@ -27,7 +27,7 @@ class PokemonDatabase: DataSource {
     }
 
     // TODO add filter by type
-    override fun getPokemonsByType(name: Type): Observable<List<Pokemon>> {
+    override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
         val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.DESCENDING)
 
         return  pokemons.map {

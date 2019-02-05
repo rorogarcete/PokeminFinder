@@ -8,7 +8,7 @@ import io.reactivex.Observable
 interface DataSource {
     fun getTypes(): Observable<List<Type>>
 
-    fun getPokemonsByType(name: Type): Observable<List<Pokemon>>
+    fun getPokemonsByType(type: String): Observable<List<Pokemon>>
 
     fun getPokemonsByFilter(query: String): Observable<List<Pokemon>>
 
