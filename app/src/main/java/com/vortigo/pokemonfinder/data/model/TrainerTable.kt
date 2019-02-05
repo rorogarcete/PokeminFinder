@@ -10,6 +10,6 @@ import io.realm.RealmObject
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
 open class TrainerTable(
-    var name: String? = "",
-    var typePokemonFavorite: RealmList<TypeTable>? = null
+    var name: String = "",
+    var typePokemonFavorite: RealmList<TypeTable> = RealmList()
 ): RealmObject()
