@@ -31,30 +31,35 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // UI
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
-
     implementation "com.android.support.constraint:constraint-layout:$constraintlayout_version"
 
+    // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    // Extension Realm
     implementation "com.github.vicpinm:krealmextensions:2.4.0"
 
+    // RX
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 
-    implementation "com.google.dagger:dagger:$dagger2_version"
-    implementation "com.google.dagger:dagger-android:$dagger2_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
-    compileOnly 'javax.annotation:jsr250-api:1.0'
-    implementation 'javax.inject:javax.inject:1'
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // Testing
     testImplementation "junit:junit:$junit_version"
     testImplementation "com.nhaarman:mockito-kotlin:$mockito_version"
     testImplementation "org.assertj:assertj-core:$assertj_version"
