@@ -11,7 +11,6 @@ import com.vortigo.pokemonfinder.data.model.TypeTable
 import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.models.Trainer
 import com.vortigo.pokemonfinder.models.Type
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.realm.Sort
 
@@ -50,12 +49,10 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
-    override fun saveTrainer(trainer: Trainer): Completable {
-        return Completable.defer {
-            val trainerTable = TrainerMapper.fromPresenter(trainer)
-            trainerTable.save()
-            Completable.complete()
-        }
+    override fun saveTrainer(trainer: Trainer) {
+        val trainerTable = TrainerMapper.fromPresenter(trainer)
+        trainerTable.save()
+
     }
 
     override fun getTypePokemonFavorite(): Observable<List<Trainer>> {

@@ -3,7 +3,6 @@ package com.vortigo.pokemonfinder.data
 import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.models.Trainer
 import com.vortigo.pokemonfinder.models.Type
-import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface DataSource {
@@ -13,7 +12,7 @@ interface DataSource {
 
     fun getPokemonsByFilter(query: String): Observable<List<Pokemon>>
 
-    fun saveTrainer(trainer: Trainer): Completable
+    fun saveTrainer(trainer: Trainer)
 
     fun getTypePokemonFavorite(): Observable<List<Trainer>>
 }
