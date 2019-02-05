@@ -1,4 +1,4 @@
-package com.vortigo.pokemonfinder.domain.model
+package com.vortigo.pokemonfinder.models
 
 data class Pokemon (
     var id: Int,
@@ -14,5 +14,5 @@ data class Pokemon (
     var name: String,
     var thumbnailAltText: String,
     var thumbnailImage: String,
-    var type: Array<Type>
+    var type: Array<String>
 )

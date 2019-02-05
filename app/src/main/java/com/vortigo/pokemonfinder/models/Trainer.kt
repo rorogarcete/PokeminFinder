@@ -1,4 +1,4 @@
-package com.vortigo.pokemonfinder.domain.model
+package com.vortigo.pokemonfinder.models
 
 data class Trainer (
     val name: String,
