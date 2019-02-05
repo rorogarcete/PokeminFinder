@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:context=".ui.pokemon.list.PokemonFragment"
+            tools:context=".ui.pokemon.list.PokemonListFragment"
             tools:listitem="@layout/fragment_pokemon"/>
 
 

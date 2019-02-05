@@ -8,14 +8,14 @@ import android.widget.TextView
 
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Pokemon
-import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonFragment.OnListFragmentInteractionListener
+import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonListFragment.OnListFragmentInteractionListener
 
 import kotlinx.android.synthetic.main.fragment_pokemon.view.*
 
 /**
  * @author rorogarcete
  * @version 0.0.1
- * Adapter of the [PokemonFragment]
+ * Adapter of the [PokemonListFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
 class PokemonAdapter(

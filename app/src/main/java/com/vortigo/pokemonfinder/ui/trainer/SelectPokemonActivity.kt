@@ -44,6 +44,11 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
         presenter.detachView()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish(ActivityAnimation.SLIDE_RIGHT)
+    }
+
     override fun goToHome() {
         if (!PokemonPreference().getInitDate(this).isEmpty()) {
             startActivity(Intent(this, PokemonSearchActivity::class.java), ActivityAnimation.SLIDE_LEFT)
