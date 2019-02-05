@@ -11,17 +11,17 @@ import io.realm.RealmObject
  */
 open class PokemonTable(
      var id: Int = 0,
-     var abilities: RealmList<String>? = null,
-     var detailPageURL: String? = "",
-     var weight: Double? = Double.MIN_VALUE,
-     var weakness: RealmList<String>? = null,
-     var number: String? = "",
-     var height: Int? = 0,
-     var collectibles_slug: String? = "",
-     var featured: String? = "",
-     var slug: String? = "",
-     var name: String? = "",
-     var thumbnailAltText: String? = "",
-     var thumbnailImage: String? = "",
-     var type: RealmList<String>? = null
+     var abilities: RealmList<String> = RealmList(),
+     var detailPageURL: String = "",
+     var weight: Double = Double.MIN_VALUE,
+     var weakness: RealmList<String> = RealmList(),
+     var number: String = "",
+     var height: Int = 0,
+     var collectibles_slug: String = "",
+     var featured: String = "",
+     var slug: String = "",
+     var name: String = "",
+     var thumbnailAltText: String = "",
+     var thumbnailImage: String = "",
+     var type: RealmList<String> = RealmList()
 ): RealmObject()
