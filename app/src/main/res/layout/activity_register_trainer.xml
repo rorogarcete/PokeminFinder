@@ -38,7 +38,7 @@
             android:layout_below="@+id/txt_name" android:singleLine="false"/>
 
     <ImageView
-            android:id="@+id/img_next"
+            android:id="@+id/img_goto_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
