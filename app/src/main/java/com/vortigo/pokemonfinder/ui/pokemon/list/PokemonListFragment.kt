@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.vortigo.pokemonfinder.R
-import com.vortigo.pokemonfinder.domain.model.Pokemon
+import com.vortigo.pokemonfinder.models.Pokemon
 
 /**
  * @author rorogarcete
@@ -19,7 +19,7 @@ import com.vortigo.pokemonfinder.domain.model.Pokemon
  * Fragment representing list of the Pokemons
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonFragment : Fragment() {
+class PokemonListFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -80,7 +80,7 @@ class PokemonFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            PokemonFragment().apply {
+            PokemonListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
