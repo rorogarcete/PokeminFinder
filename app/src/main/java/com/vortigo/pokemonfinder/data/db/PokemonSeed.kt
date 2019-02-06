@@ -1,12 +1,17 @@
 package com.vortigo.pokemonfinder.data.db
 
 import android.content.Context
+import com.vicpin.krealmextensions.query
+import com.vicpin.krealmextensions.queryFirst
+import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.transaction
 import com.vortigo.pokemonfinder.data.model.PokemonTable
 import com.vortigo.pokemonfinder.data.model.TypeTable
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
 import com.vortigo.pokemonfinder.helper.Util
 import io.realm.Realm
+import io.realm.RealmList
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -15,18 +20,13 @@ import org.json.JSONObject
  * Seed Class for retrieve data from JSON files and save with Realm.io
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonSeed(
-    private val context: Context,
-    private val realm: Realm) {
-
-    val POKEMONS_FILE = "pokemons.json"
-    val TYPES_FILE = "types.json"
-    val TYPES_RESULTS = "results"
+class PokemonSeed(private val context: Context, private val realm: Realm) {
 
     fun populateData() {
+
         realm.transaction {
-            createPokemons()
             createTypes()
+            createPokemons()
         }
 
         PokemonPreference().setInitData(context, Util.INIT_DATA)
@@ -43,8 +43,39 @@ class PokemonSeed(
     }
 
     private fun createPokemons() {
-        val pokemons = loadJSON(POKEMONS_FILE)
-        realm.createAllFromJson(PokemonTable::class.java, pokemons)
+        val pokemonInput = loadJSON(POKEMONS_FILE)
+
+        val jsonPokemons = JSONArray(pokemonInput)
+
+        for (i in 0..(jsonPokemons.length() - 1)) {
+            val item = jsonPokemons.getJSONObject(i)
+            val types = item.getJSONArray("type")
+            val typesTable: RealmList<TypeTable> = RealmList()
+
+            for (j in 0..(types.length() - 1)) {
+                val t = types.get(j)
+                val type = TypeTable().query { equalTo("name", t.toString()) }[0]
+
+                if (type.isValid) typesTable.add(type)
+            }
+
+            PokemonTable(
+                item.getInt("id"),
+                //item.getJSONArray("abilities") as RealmList<String>,
+                item.getString("detailPageURL").toString(),
+                item.getDouble("weight"),
+                //item.getJSONArray("weakness") as RealmList<String>,
+                item.getString("number"),
+                item.getDouble("height"),
+                item.getString("collectibles_slug"),
+                item.getString("featured"),
+                item.getString("slug"),
+                item.getString("name"),
+                item.getString("thumbnailAltText"),
+                item.getString("thumbnailImage"),
+                typesTable
+            ).save()
+        }
     }
 
     private fun createTypes() {
@@ -53,6 +84,12 @@ class PokemonSeed(
         val types = obj.getJSONArray(TYPES_RESULTS)
 
         realm.createAllFromJson(TypeTable::class.java, types)
+    }
+
+    companion object {
+        val POKEMONS_FILE = "pokemons.json"
+        val TYPES_FILE = "types.json"
+        val TYPES_RESULTS = "results"
     }
 
 }

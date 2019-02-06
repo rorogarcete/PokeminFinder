@@ -1,5 +1,6 @@
 package com.vortigo.pokemonfinder.data.db
 
+import android.util.Log
 import com.vicpin.krealmextensions.*
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.data.mapper.PokemonMapper
@@ -26,9 +27,9 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
-    // TODO add filter by type
     override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.DESCENDING)
+        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.ASCENDING)
+        { equalTo("type.name", type) }
 
         return  pokemons.map {
             it.map {
@@ -38,9 +39,8 @@ class PokemonDatabase: DataSource {
     }
 
     override fun getPokemonsByFilter(query: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().queryAsFlowable {
-            equalTo("name", query)
-        }
+        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.ASCENDING)
+        { equalTo("name", query) }
 
         return  pokemons.map {
             it.map {
@@ -49,10 +49,19 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
+    // TODO Change for Completable
     override fun saveTrainer(trainer: Trainer) {
         val trainerTable = TrainerMapper.fromPresenter(trainer)
         trainerTable.save()
+    }
 
+    // TODO Change query for get one Trainer
+    override fun getTrainer(): Observable<Trainer> {
+        val trainer = TrainerTable().queryAllAsFlowable()
+
+        return trainer.map {
+                TrainerMapper.toPresenter(it.get(0))
+        }.toObservable()
     }
 
     override fun getTypePokemonFavorite(): Observable<List<Trainer>> {
