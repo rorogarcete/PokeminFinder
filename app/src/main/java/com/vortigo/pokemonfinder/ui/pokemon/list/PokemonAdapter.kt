@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Pokemon
-import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonListFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_pokemon.view.*
 
 /**
@@ -18,19 +17,7 @@ import kotlinx.android.synthetic.main.fragment_pokemon.view.*
  * Adapter of the [PokemonListFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonAdapter(
-    private val pokemons: List<Pokemon>,
-    private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
-
-    private val mOnClickListener: View.OnClickListener
-
-    init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as Pokemon
-            mListener?.onListFragmentInteraction(item)
-        }
-    }
+class PokemonAdapter(private val pokemons: List<Pokemon>): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_pokemon, parent, false)
@@ -44,11 +31,6 @@ class PokemonAdapter(
         Glide.with(holder.imgPokemon.context)
             .load(item.thumbnailImage)
             .into(holder.imgPokemon)
-
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
-        }
     }
 
     override fun getItemCount(): Int = pokemons.size

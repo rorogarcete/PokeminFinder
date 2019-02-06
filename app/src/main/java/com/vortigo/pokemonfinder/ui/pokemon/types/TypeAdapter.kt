@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Type
-import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_type.view.*
 
 /**
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_type.view.*
  */
 class TypeAdapter(
     private val types: List<Type>,
-    private val mListener: OnListFragmentInteractionListener?
+    private val mListener: TypeFragment.onClickListener?
 ) : RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -28,7 +27,7 @@ class TypeAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Type
-            mListener?.onListFragmentInteraction(item)
+            mListener?.onClick(item)
         }
     }
 

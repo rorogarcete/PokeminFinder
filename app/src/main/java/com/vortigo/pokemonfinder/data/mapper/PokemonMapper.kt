@@ -9,10 +9,10 @@ object PokemonMapper: Mapper<PokemonTable, Pokemon> {
     override fun toPresenter(table: PokemonTable): Pokemon {
         return Pokemon(
             table.id,
-            table.abilities.toArray() as Array<String>,
+            table.abilities.toTypedArray(),
             table.detailPageURL,
             table.weight,
-            table.weakness.toArray() as Array<String>,
+            table.weakness.toTypedArray(),
             table.number,
             table.height,
             table.collectibles_slug,
@@ -21,7 +21,7 @@ object PokemonMapper: Mapper<PokemonTable, Pokemon> {
             table.name,
             table.thumbnailAltText,
             table.thumbnailImage,
-            table.type.toArray() as Array<String>
+            table.type.toTypedArray()
         )
 
     }
@@ -32,7 +32,7 @@ object PokemonMapper: Mapper<PokemonTable, Pokemon> {
             model.abilities as RealmList<String>,
             model.detailPageURL,
             model.weight,
-            model.weakness as RealmList<String>,
+            model.weakness  as RealmList<String>,
             model.number,
             model.height,
             model.collectibles_slug,

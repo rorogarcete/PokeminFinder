@@ -5,6 +5,7 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class PokemonListPresenter @Inject constructor(
@@ -25,8 +26,25 @@ class PokemonListPresenter @Inject constructor(
     }
 
     override fun getPokemons() {
-        val type = "type"
-        dataSource.getPokemonsByType(type)
+        view.showProgress()
+        val subscr = dataSource.getPokemonsByType("normal")
+            .subscribeOn(subscriberScheduler)
+            .observeOn(observerScheduler)
+            .subscribe(
+                { pokemons ->
+                    view.loadPokemons(pokemons)
+                    view.hideProgress()
+                },
+                { throwable ->
+                    Timber.e(throwable)
+                    view.hideProgress()
+                },
+                {
+                    view.hideProgress()
+                }
+            )
+
+        subscriptions.add(subscr)
     }
 
 }

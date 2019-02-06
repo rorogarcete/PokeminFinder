@@ -2,7 +2,6 @@ package com.vortigo.pokemonfinder.ui.trainer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
@@ -72,11 +71,6 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
     private fun save(name: String) {
         val typeFav = spinner_types.getSelectedItem() as Type
         val t = Trainer(name, typeFav.name, typeFav.thumbnailImage)
-
-        Log.d("train", typeFav.toString())
-
-        Log.d("train", t.toString())
-
         presenter.saveTrainer(t)
     }
 

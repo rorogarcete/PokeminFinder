@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_type_list.view.*
 import javax.inject.Inject
 
 /**
@@ -25,34 +25,44 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     @Inject lateinit var presenter: TypeContract.TypePresenter
 
-    private var listener: OnListFragmentInteractionListener? = null
-    private var typeAdapter: TypeAdapter? = null
-    private var progressBar: ProgressBar? = null
+    private var listener: onClickListener? = null
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var typeAdapter: TypeAdapter
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setInjection()
-        presenter.attachView(this)
-        presenter.getFavoriteTypes()
+
         retainInstance = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_type_list, container, false)
 
-        val recyclerView = view.typesRecyclerView as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = typeAdapter
-
+        recyclerView = view.findViewById(R.id.typesRecyclerView)
         progressBar = view.findViewById(R.id.progress_indicator)
 
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setInjection()
+        presenter.attachView(this)
+        presenter.getFavoriteTypes()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.detachView()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
+        if (context is onClickListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
@@ -64,22 +74,25 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
         listener = null
     }
 
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: Type)
+    interface onClickListener {
+        fun onClick(item: Type)
     }
 
     override fun showProgress() {
-        progressBar?.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progressBar?.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun onEntityError(error: String) { }
 
     override fun loadTypes(types: List<Type>) {
         typeAdapter = TypeAdapter(types, listener)
+
+        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = typeAdapter
     }
 
     //Local Methods

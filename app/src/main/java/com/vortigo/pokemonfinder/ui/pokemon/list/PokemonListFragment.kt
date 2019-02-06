@@ -1,9 +1,9 @@
 package com.vortigo.pokemonfinder.ui.pokemon.list
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,6 @@ import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_pokemon_list.view.*
 import javax.inject.Inject
 
 /**
@@ -24,56 +23,44 @@ import javax.inject.Inject
 class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
 
     @Inject lateinit var presenter: PokemonListContract.PokemonPresenter
-    private var pokemonAdapter: PokemonAdapter? = null
-    private var progressBar: ProgressBar? = null
 
-    private var listener: OnListFragmentInteractionListener? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var pokemonAdapter: PokemonAdapter
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setInjection()
-        presenter.attachView(this)
-        presenter.getPokemons()
         retainInstance = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_pokemon_list, container, false)
 
-        val recyclerView = view.pokemonRecyclerView as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = pokemonAdapter
-
+        recyclerView = view.findViewById(R.id.pokemonRecyclerView)
         progressBar = view.findViewById(R.id.progress_indicator)
 
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setInjection()
+        presenter.attachView(this)
+        presenter.getPokemons()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: Pokemon?)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.detachView()
     }
 
     override fun showProgress() {
-        progressBar?.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progressBar?.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun onEntityError(error: String) {
@@ -81,7 +68,10 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
     }
 
     override fun loadPokemons(pokemons: List<Pokemon>) {
-        pokemonAdapter = PokemonAdapter(pokemons, listener)
+        pokemonAdapter = PokemonAdapter(pokemons)
+
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.adapter = pokemonAdapter
     }
 
     //Local Methods

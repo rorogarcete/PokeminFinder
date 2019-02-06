@@ -4,11 +4,12 @@ import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
 import android.view.Menu
-import android.widget.SearchView
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Pokemon
+import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.base.BaseActivity
 import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonListFragment
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment
@@ -20,7 +21,7 @@ import javax.inject.Inject
  * Activity to search pokemons
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearchView {
+class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearchView, TypeFragment.onClickListener {
 
     @Inject lateinit var presenter: PokemonSearchContract.PokemonSerchPresenter
 
@@ -97,6 +98,10 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
     }
 
     override fun loadPokemons(types: List<Pokemon>) {
+
+    }
+
+    override fun onClick(item: Type) {
 
     }
 
