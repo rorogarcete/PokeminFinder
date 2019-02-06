@@ -7,15 +7,15 @@
     <FrameLayout
             android:id="@+id/container_types"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_margin="@dimen/margin_16dp"/>
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/margin_8dp"/>
 
     <FrameLayout
             android:id="@+id/container_pokemons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/container_types"
-            android:layout_margin="@dimen/margin_16dp"/>
+            android:layout_marginBottom="@dimen/margin_8dp"/>
 
     <include android:id="@+id/progress_indicator" layout="@layout/progress_view"/>
 

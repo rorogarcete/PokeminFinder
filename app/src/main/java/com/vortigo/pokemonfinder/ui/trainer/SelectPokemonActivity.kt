@@ -24,6 +24,8 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
 
     @Inject lateinit var presenter: TrainerContract.TrainerPresenter
 
+    private var trainerName: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_pokemon)
@@ -50,6 +52,7 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
 
     override fun goToHome() {
         if (!PokemonPreference().getInitDate(this).isEmpty()) {
+            PokemonPreference().setTypeFavorite(this, trainerName)
             startActivity(Intent(this, PokemonSearchActivity::class.java), ActivityAnimation.SLIDE_LEFT)
         }
     }
@@ -75,7 +78,7 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
     }
 
     private fun setInit() {
-        val trainerName = intent.getStringExtra(Util.TRAINER_NAME)
+        trainerName = intent.getStringExtra(Util.TRAINER_NAME)
 
         img_register_trainer.setOnClickListener {
             save(trainerName)

@@ -3,8 +3,10 @@ package com.vortigo.pokemonfinder.ui.pokemon.search
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
@@ -25,6 +27,8 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
     @Inject lateinit var presenter: PokemonSearchContract.PokemonSerchPresenter
 
+    private lateinit var pokemonListFragment: PokemonListFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_search)
@@ -33,9 +37,11 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         setInjection()
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.container_types, TypeFragment.newInstance()).commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_types, TypeFragment.newInstance()).commit()
 
-            supportFragmentManager.beginTransaction().replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
         }
     }
 
@@ -97,12 +103,20 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
     }
 
-    override fun loadPokemons(types: List<Pokemon>) {
+    override fun loadPokemons(pokemons: List<Pokemon>) {
+        pokemonListFragment = PokemonListFragment.newInstance()
+        pokemonListFragment.loadPokemonsByFinder(pokemons)
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
     }
 
+    // update favorite type for trainer and load pokemons
     override fun onClick(item: Type) {
+        Log.d("CLICK", item.name)
+        presenter.getPokemonsByName(item.name)
 
+        //save pokemon fav
     }
 
     // Local Methods

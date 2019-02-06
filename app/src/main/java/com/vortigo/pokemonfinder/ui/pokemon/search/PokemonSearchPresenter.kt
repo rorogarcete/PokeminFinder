@@ -5,8 +5,15 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Fragment representing list of the Pokemons
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class PokemonSearchPresenter @Inject constructor(
     var dataSource: DataSource,
     val subscriberScheduler : Scheduler = Schedulers.io(),
@@ -25,8 +32,47 @@ class PokemonSearchPresenter @Inject constructor(
     }
 
     override fun getPokemonsByName(name: String) {
-        dataSource.getPokemonsByFilter(name)
+        view.showProgress()
+        val subscr = dataSource.getPokemonsByFilter(name)
+            .subscribeOn(subscriberScheduler)
+            .observeOn(observerScheduler)
+            .subscribe(
+                { pokemons ->
+                    view.loadPokemons(pokemons)
+                    view.hideProgress()
+                },
+                { throwable ->
+                    Timber.e(throwable)
+                    view.hideProgress()
+                },
+                {
+                    view.hideProgress()
+                }
+            )
+
+        subscriptions.add(subscr)
     }
 
+    override fun getPokemonsByType(type: String) {
+        view.showProgress()
+        val subscr = dataSource.getPokemonsByType(type)
+            .subscribeOn(subscriberScheduler)
+            .observeOn(observerScheduler)
+            .subscribe(
+                { pokemons ->
+                    view.loadPokemons(pokemons)
+                    view.hideProgress()
+                },
+                { throwable ->
+                    Timber.e(throwable)
+                    view.hideProgress()
+                },
+                {
+                    view.hideProgress()
+                }
+            )
+
+        subscriptions.add(subscr)
+    }
 
 }

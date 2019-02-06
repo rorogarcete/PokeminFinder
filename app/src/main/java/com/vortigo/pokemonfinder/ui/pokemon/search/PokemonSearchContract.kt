@@ -7,11 +7,12 @@ import com.vortigo.pokemonfinder.ui.base.View
 interface PokemonSearchContract {
 
     interface PokemonSearchView: View {
-        fun loadPokemons(types: List<Pokemon>)
+        fun loadPokemons(pokemons: List<Pokemon>)
     }
 
     interface PokemonSerchPresenter: Presenter<PokemonSearchView> {
         fun getPokemonsByName(name: String)
+        fun getPokemonsByType(type: String)
     }
 
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,11 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_type_list, container, false)
 
-        recyclerView = view.findViewById(R.id.typesRecyclerView)
         progressBar = view.findViewById(R.id.progress_indicator)
+
+        recyclerView = view.findViewById(R.id.typesRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.hasFixedSize()
 
         return view
     }
@@ -65,7 +67,7 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
         if (context is onClickListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnClickListener")
         }
     }
 
@@ -90,8 +92,6 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     override fun loadTypes(types: List<Type>) {
         typeAdapter = TypeAdapter(types, listener)
-
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = typeAdapter
     }
 

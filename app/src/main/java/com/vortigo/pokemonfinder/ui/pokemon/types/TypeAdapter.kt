@@ -1,13 +1,14 @@
 package com.vortigo.pokemonfinder.ui.pokemon.types
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.vortigo.pokemonfinder.R
+import com.vortigo.pokemonfinder.helper.LoadImage
 import com.vortigo.pokemonfinder.models.Type
 import kotlinx.android.synthetic.main.fragment_type.view.*
 
@@ -17,10 +18,7 @@ import kotlinx.android.synthetic.main.fragment_type.view.*
  * Adapter of the [TypeFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class TypeAdapter(
-    private val types: List<Type>,
-    private val mListener: TypeFragment.onClickListener?
-) : RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
+class TypeAdapter(private val types: List<Type>, private val mListener: TypeFragment.onClickListener?): RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
@@ -39,11 +37,9 @@ class TypeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = types[position]
-        holder.mIdView.text = item.name
+        holder.txtType.text = item.name
 
-        Glide.with(holder.imgType.context)
-            .load(item.thumbnailImage)
-            .into(holder.imgType)
+        LoadImage.setImageUrl(holder.imgType, item.thumbnailImage)
 
         with(holder.mView) {
             tag = item
@@ -53,8 +49,8 @@ class TypeAdapter(
 
     override fun getItemCount(): Int = types.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.txt_name_type
+    inner class ViewHolder(val mView: View): RecyclerView.ViewHolder(mView) {
+        val txtType: TextView = mView.txt_name_type
         val imgType: ImageView = mView.img_type_pokemon
     }
 }

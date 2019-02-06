@@ -25,9 +25,12 @@ class PokemonListPresenter @Inject constructor(
         subscriptions.clear()
     }
 
-    override fun getPokemons() {
+    /**
+     * Get Pokemons selected to trainer
+     */
+    override fun getPokemonsFavoriteByType(type: String) {
         view.showProgress()
-        val subscr = dataSource.getPokemonsByType("normal")
+        val subscr = dataSource.getPokemonsByType(type)
             .subscribeOn(subscriberScheduler)
             .observeOn(observerScheduler)
             .subscribe(

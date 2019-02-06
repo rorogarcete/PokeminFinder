@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.vortigo.pokemonfinder.R
+import com.vortigo.pokemonfinder.helper.LoadImage
 import com.vortigo.pokemonfinder.models.Pokemon
 import kotlinx.android.synthetic.main.fragment_pokemon.view.*
 
@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.fragment_pokemon.view.*
  * Adapter of the [PokemonListFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonAdapter(private val pokemons: List<Pokemon>): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+
+    private lateinit var pokemons: List<Pokemon>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_pokemon, parent, false)
@@ -28,9 +30,7 @@ class PokemonAdapter(private val pokemons: List<Pokemon>): RecyclerView.Adapter<
         val item = pokemons[position]
         holder.mContentView.text = item.name
 
-        Glide.with(holder.imgPokemon.context)
-            .load(item.thumbnailImage)
-            .into(holder.imgPokemon)
+        LoadImage.setImageUrl(holder.imgPokemon, item.thumbnailImage)
     }
 
     override fun getItemCount(): Int = pokemons.size
@@ -38,5 +38,10 @@ class PokemonAdapter(private val pokemons: List<Pokemon>): RecyclerView.Adapter<
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mContentView: TextView = mView.txt_name_pokemon
         val imgPokemon: ImageView = mView.img_pokemon
+    }
+
+    public fun setList(pokemonList: List<Pokemon>) {
+        this.pokemons = emptyList()
+        this.pokemons = pokemonList
     }
 }

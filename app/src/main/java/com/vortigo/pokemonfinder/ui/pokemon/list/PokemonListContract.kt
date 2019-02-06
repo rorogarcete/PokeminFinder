@@ -11,7 +11,7 @@ interface PokemonListContract {
     }
 
     interface PokemonPresenter: Presenter<PokemonView> {
-        fun getPokemons()
+        fun getPokemonsFavoriteByType(type: String)
     }
 
 }
