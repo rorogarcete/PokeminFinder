@@ -32,15 +32,16 @@ class SpinnerTypeAdapter(context: Context, @LayoutRes private val layoutResource
     private fun createViewFromResource(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = LayoutInflater.from(context).inflate(layoutResource, parent, false)
 
+        val item = types[position]
         val img = view.findViewById<ImageView>(R.id.img_type)
-
         val txt = view.findViewById<TextView>(R.id.txt_type_name)
 
-        Glide.with(img.context)
-            .load(types[position].thumbnailImage)
-            .into(img)
+//        Glide.with(img.context)
+//            .load(types[position].thumbnailImage)
+//            .into(img)
 
-        txt.text = types[position].name
+        LoadImage.setImageUrl(img, item.thumbnailImage)
+        txt.text = item.name
 
         return view
     }
