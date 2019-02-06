@@ -32,8 +32,6 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         retainInstance = true
     }
 
@@ -92,6 +90,7 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     override fun loadTypes(types: List<Type>) {
         typeAdapter = TypeAdapter(types, listener)
+        typeAdapter.notifyDataSetChanged()
         recyclerView.adapter = typeAdapter
     }
 

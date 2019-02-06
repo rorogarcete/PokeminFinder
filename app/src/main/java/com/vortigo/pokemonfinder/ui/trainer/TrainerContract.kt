@@ -8,7 +8,7 @@ import com.vortigo.pokemonfinder.ui.base.View
 interface TrainerContract {
 
     interface TrainerView: View  {
-        fun goToHome()
+        fun goToHome(type: String)
         fun loadTypes(types: List<Type>)
     }
 

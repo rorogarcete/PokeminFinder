@@ -49,6 +49,6 @@ class TrainerPresenter @Inject constructor(
     override fun saveTrainer(trainer: Trainer) {
         dataSource.saveTrainer(trainer)
 
-        view.goToHome()
+        view.goToHome(trainer.typePokemon)
     }
 }
