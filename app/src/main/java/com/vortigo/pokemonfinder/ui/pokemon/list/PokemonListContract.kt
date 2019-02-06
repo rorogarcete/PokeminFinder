@@ -7,7 +7,7 @@ import com.vortigo.pokemonfinder.ui.base.View
 interface PokemonListContract {
 
     interface PokemonView: View {
-        fun loadPokemons(types: List<Pokemon>)
+        fun loadPokemons(pokemons: List<Pokemon>)
     }
 
     interface PokemonPresenter: Presenter<PokemonView> {
