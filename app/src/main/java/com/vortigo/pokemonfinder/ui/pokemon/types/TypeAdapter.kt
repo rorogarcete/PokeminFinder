@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-
+import com.bumptech.glide.Glide
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment.OnListFragmentInteractionListener
-
 import kotlinx.android.synthetic.main.fragment_type.view.*
 
 /**
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_type.view.*
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
 class TypeAdapter(
-    private val mValues: List<Type>,
+    private val types: List<Type>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
 
@@ -39,8 +39,12 @@ class TypeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
+        val item = types[position]
         holder.mIdView.text = item.name
+
+        Glide.with(holder.imgType.context)
+            .load(item.thumbnailImage)
+            .into(holder.imgType)
 
         with(holder.mView) {
             tag = item
@@ -48,9 +52,10 @@ class TypeAdapter(
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int = types.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.txt_name_type
+        val imgType: ImageView = mView.img_type_pokemon
     }
 }
