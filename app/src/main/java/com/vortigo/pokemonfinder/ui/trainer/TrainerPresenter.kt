@@ -37,7 +37,6 @@ class TrainerPresenter @Inject constructor(
                 { throwable ->
                     Timber.e(throwable)
                     view.hideProgress()
-                    //view.onEntityError()
                 },
                 {
                     view.hideProgress()
