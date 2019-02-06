@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
-        android:orientation="vertical"
-        tools:context=".ui.pokemon.search.PokemonSearchActivity">
+        android:background="@drawable/bg">
 
     <FrameLayout
-            android:id="@+id/container_type_pokemon"
+            android:id="@+id/container_types"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="120dp"
+            android:layout_margin="@dimen/margin_16dp"/>
 
     <FrameLayout
             android:id="@+id/container_pokemons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/container_types"
+            android:layout_margin="@dimen/margin_16dp"/>
 
-</LinearLayout>
+    <include android:id="@+id/progress_indicator" layout="@layout/progress_view"/>
+
+</RelativeLayout>

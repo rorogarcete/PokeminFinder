@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.view.Menu
 import android.widget.SearchView
+import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.ui.base.BaseActivity
+import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonListFragment
+import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment
 import javax.inject.Inject
 
 /**
@@ -26,11 +29,23 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         setContentView(R.layout.activity_pokemon_search)
 
         handleIntent(intent)
+        setInjection()
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.container_types, TypeFragment.newInstance()).commit()
+
+            supportFragmentManager.beginTransaction().replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        presenter.attachView(this)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
     }
 
     override fun onBackPressed() {
@@ -85,10 +100,15 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
     }
 
+    // Local Methods
+    private fun setInjection() {
+        PokemonFinderApp.instance.component.inject(this)
+    }
+
     private fun handleIntent(intent: Intent) {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                //doMySearch(query)
+                presenter.getPokemonsByName(query)
             }
         }
     }
