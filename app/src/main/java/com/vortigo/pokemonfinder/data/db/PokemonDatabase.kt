@@ -64,9 +64,10 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
-    override fun saveTrainer(trainer: Trainer) {
+    override fun saveTrainer(trainer: Trainer): Boolean {
         val trainerTable = TrainerMapper.fromPresenter(trainer)
         trainerTable.save()
+        return true
     }
 
     override fun getTypePokemonFavorite(): Observable<List<Trainer>> {

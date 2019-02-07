@@ -12,10 +12,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginLeft="@dimen/margin_16dp"
             android:layout_marginRight="@dimen/margin_32dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
             android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
             android:contentDescription="@string/app_name"/>
 
