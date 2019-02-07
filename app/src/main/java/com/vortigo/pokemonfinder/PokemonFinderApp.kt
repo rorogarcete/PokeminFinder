@@ -65,6 +65,7 @@ class PokemonFinderApp: Application() {
 
     companion object {
         lateinit var instance : PokemonFinderApp private set
+        var sIsSessionActive: Boolean = false
     }
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container_trainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg">
@@ -10,9 +11,9 @@
             style="@style/text_white_big"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_90"
             android:layout_marginLeft="@dimen/margin_32dp"
             android:layout_marginRight="@dimen/margin_32dp"
-            android:layout_marginTop="90dp"
             android:text="@string/msg_register_title"/>
 
     <TextView
@@ -30,12 +31,14 @@
             style="@style/edt_default_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:layout_marginTop="@dimen/margin_32dp"
-            android:layout_marginLeft="@dimen/margin_32dp"
-            android:layout_marginRight="@dimen/margin_32dp"
             android:labelFor="@+id/txt_name"
-            android:layout_below="@+id/txt_name" android:singleLine="false"/>
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:layout_below="@+id/txt_name" android:importantForAutofill="no"
+            android:textColorLink="@color/colorWhite" android:layout_marginLeft="@dimen/margin_32dp"
+            android:layout_marginTop="@dimen/margin_32dp" android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginRight="@dimen/margin_32dp" android:layout_marginEnd="@dimen/margin_32dp"
+            android:layout_marginBottom="@dimen/margin_32dp" android:textStyle="bold"/>
 
     <ImageView
             android:id="@+id/img_goto_select"

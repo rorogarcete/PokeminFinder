@@ -18,6 +18,7 @@ interface PokemonListContract {
 
     interface PokemonPresenter: Presenter<PokemonView> {
         fun getPokemonsFavoriteByType(type: String)
+        fun makeOrderedPokemonByName(type: String)
     }
 
 }

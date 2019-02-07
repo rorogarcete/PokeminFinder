@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/padding_16dp"
         android:background="@drawable/bg">
 
     <ImageView
@@ -11,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/margin_top_home"
+            android:layout_marginTop="@dimen/margin_top_90"
             android:contentDescription="@string/app_name"
             android:background="@drawable/pokemon_logo" />
 
@@ -25,25 +26,24 @@
             android:contentDescription="@string/app_name"
             android:background="@drawable/finder"/>
 
-    <Button
-            android:id="@+id/btn_lets_go"
-            style="@style/button_default"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:text="@string/msg_home_letsgo"
-            android:layout_marginLeft="@dimen/margin_32dp"
-            android:layout_marginRight="@dimen/margin_32dp"
-            android:layout_centerHorizontal="true"/>
-
-    <ImageView
-            android:id="@+id/img_pikachu"
+    <TextView
+            android:id="@+id/txt_cargando"
+            style="@style/text_white_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/app_name"
-            android:background="@drawable/pikachu_dab"/>
+            android:layout_below="@+id/img_finder"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_16dp"
+            android:text="@string/title_loading" />
+
+    <ProgressBar
+            android:id="@+id/progress_indicator_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_cargando"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_16dp"
+            android:indeterminate="true"
+            android:visibility="visible" />
 
 </RelativeLayout>

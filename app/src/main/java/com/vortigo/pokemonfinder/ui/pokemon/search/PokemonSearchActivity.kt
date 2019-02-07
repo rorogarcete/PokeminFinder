@@ -84,7 +84,7 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 presenter.getPokemonsByFilter(query)
-                return true
+                return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {

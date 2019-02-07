@@ -17,6 +17,7 @@
                     android:id="@+id/txt_pokemon_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size"
                     android:text="@string/msg_title_pokemon"/>
 
             <LinearLayout
@@ -33,6 +34,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_8dp"
                         android:layout_marginRight="@dimen/margin_8dp"
+                        android:textSize="@dimen/text_size"
                         android:text="@string/msg_name_pokemon"/>
 
                 <ImageView

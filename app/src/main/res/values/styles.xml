@@ -36,6 +36,8 @@
         <item name="colorControlNormal">@color/colorWhite</item>
         <item name="colorControlActivated">@color/colorWhite</item>
         <item name="colorControlHighlight">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <!--Style for Button-->

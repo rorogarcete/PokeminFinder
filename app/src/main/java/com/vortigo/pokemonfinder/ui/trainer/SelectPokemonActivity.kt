@@ -37,6 +37,10 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
 
         progressBar = findViewById(R.id.progress_indicator)
 
+        img_arrow.setOnClickListener {
+            onBackPressed()
+        }
+
         setInit()
         setInjection()
     }
@@ -58,10 +62,9 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
     }
 
     override fun goToHome(type: String) {
-        if (!PokemonPreference().getInitDate(this).isEmpty()) {
-            PokemonPreference().setTypeFavorite(this, type)
-            startActivity(Intent(this, PokemonSearchActivity::class.java), ActivityAnimation.SLIDE_LEFT)
-        }
+        PokemonPreference().setTypeFavorite(this, type)
+        startActivity(Intent(this, PokemonSearchActivity::class.java), ActivityAnimation.SLIDE_LEFT)
+        finish()
     }
 
     override fun showProgress() {

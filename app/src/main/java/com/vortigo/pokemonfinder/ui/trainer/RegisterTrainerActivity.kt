@@ -2,6 +2,7 @@ package com.vortigo.pokemonfinder.ui.trainer
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.helper.Util
 import com.vortigo.pokemonfinder.ui.base.BaseActivity
@@ -24,12 +25,9 @@ class RegisterTrainerActivity : BaseActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish(ActivityAnimation.SLIDE_RIGHT)
     }
 
     private fun goToSelectPokemonActivity() {
@@ -40,7 +38,8 @@ class RegisterTrainerActivity : BaseActivity() {
             intent.putExtra(Util.TRAINER_NAME, trainerName)
             startActivity(Intent(intent), ActivityAnimation.SLIDE_LEFT)
         } else {
-            //show validation
+            val error = "Name is requiered.!"
+            Snackbar.make(container_trainer, error, Snackbar.LENGTH_LONG).show()
         }
     }
 }

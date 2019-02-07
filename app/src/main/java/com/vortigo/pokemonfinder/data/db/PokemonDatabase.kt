@@ -33,10 +33,20 @@ class PokemonDatabase: DataSource {
     }
 
     override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
-        { equalTo(FIELD_TYPE_NAME, type) }
+        val pokemons = PokemonTable().queryAsFlowable { equalTo(FIELD_TYPE_NAME, type) }
 
         return  pokemons.map {
+            it.map {
+                PokemonMapper.toPresenter(it)
+            }
+        }.toObservable()
+    }
+
+    override fun getPokemonsOrderedByType(type: String): Observable<List<Pokemon>> {
+        val pokemonsOrdered = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
+        { equalTo(FIELD_TYPE_NAME, type) }
+
+        return  pokemonsOrdered.map {
             it.map {
                 PokemonMapper.toPresenter(it)
             }

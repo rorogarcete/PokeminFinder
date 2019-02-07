@@ -16,6 +16,8 @@ interface DataSource {
 
     fun getPokemonsByType(type: String): Observable<List<Pokemon>>
 
+    fun getPokemonsOrderedByType(type: String): Observable<List<Pokemon>>
+
     fun getPokemonsByFilter(query: String): Observable<List<Pokemon>>
 
     fun saveTrainer(trainer: Trainer)

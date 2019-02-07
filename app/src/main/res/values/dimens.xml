@@ -23,4 +23,7 @@
     <!--Dimens for paddings-->
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="margin_top_90">90dp</dimen>
+    <dimen name="img_pokemon_width">150</dimen>
+    <dimen name="margin_top_home">40dp</dimen>
 </resources>
