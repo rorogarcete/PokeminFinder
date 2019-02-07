@@ -1,12 +1,9 @@
 package com.vortigo.pokemonfinder.ui.pokemon.search
 
 import android.app.SearchManager
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
@@ -16,6 +13,14 @@ import com.vortigo.pokemonfinder.ui.base.BaseActivity
 import com.vortigo.pokemonfinder.ui.pokemon.list.PokemonListFragment
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypeFragment
 import javax.inject.Inject
+import android.graphics.Color
+import android.os.Build
+import android.view.MenuItem
+import android.support.v7.widget.Toolbar
+import android.view.View
+import android.widget.ProgressBar
+import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
+import timber.log.Timber
 
 /**
  * @author rorogarcete
@@ -27,26 +32,34 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
     @Inject lateinit var presenter: PokemonSearchContract.PokemonSerchPresenter
 
-    private lateinit var pokemonListFragment: PokemonListFragment
+    private val pokemonListFragment = PokemonListFragment.newInstance()
+
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_search)
 
-        handleIntent(intent)
-        setInjection()
+        progressBar = findViewById(R.id.progress_indicator)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        whiteNotificationBar(toolbar)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_types, TypeFragment.newInstance()).commit()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
+                .replace(R.id.container_pokemons, pokemonListFragment).commit()
         }
     }
 
+
     override fun onResume() {
         super.onResume()
+        setInjection()
         presenter.attachView(this)
     }
 
@@ -60,77 +73,72 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         finish(ActivityAnimation.SLIDE_RIGHT)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        setIntent(intent)
-        handleIntent(intent)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.pokemon_search, menu)
+        menuInflater.inflate(R.menu.menu_pokemon_search, menu)
 
-        val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-
-        searchView.queryHint = getText(R.string.action_search)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
+        searchView.setSearchableInfo( searchManager.getSearchableInfo(componentName))
+        searchView.maxWidth = Integer.MAX_VALUE
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchView.setQuery("", false)
-                searchView.isIconified = true
+                presenter.getPokemonsByFilter(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                //textView.setText(newText)
-                // task HERE
+            override fun onQueryTextChange(query: String): Boolean {
+                presenter.getPokemonsByFilter(query)
                 return true
             }
         })
 
+        return true
+    }
 
-        return super.onCreateOptionsMenu(menu)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id = item?.getItemId()
+
+        return if (id == R.id.action_search) {
+            true
+        } else super.onOptionsItemSelected(item)
+
     }
 
     override fun showProgress() {
-
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-
+        progressBar.visibility = View.GONE
     }
 
     override fun onEntityError(error: String) {
-
+        Timber.e(error)
     }
 
     override fun loadPokemons(pokemons: List<Pokemon>) {
-        pokemonListFragment = PokemonListFragment.newInstance()
-        pokemonListFragment.loadPokemonsByFinder(pokemons)
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container_pokemons, PokemonListFragment.newInstance()).commit()
+        pokemonListFragment.loadPokemons(pokemons)
     }
 
-    // update favorite type for trainer and load pokemons
     override fun onClick(item: Type) {
-        Log.d("CLICK", item.name)
-        presenter.getPokemonsByName(item.name)
+        presenter.getPokemonsByType(item.name)
 
-        //save pokemon fav
+        PokemonPreference().setTypeFavorite(this, item.name)
     }
 
     // Local Methods
-    private fun setInjection() {
-        PokemonFinderApp.instance.component.inject(this)
-    }
-
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                presenter.getPokemonsByName(query)
-            }
+    private fun whiteNotificationBar(view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var flags = view.getSystemUiVisibility()
+            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            view.setSystemUiVisibility(flags)
+            window.statusBarColor = Color.WHITE
         }
     }
 
+    private fun setInjection() {
+        PokemonFinderApp.instance.component.inject(this)
+    }
 
 }

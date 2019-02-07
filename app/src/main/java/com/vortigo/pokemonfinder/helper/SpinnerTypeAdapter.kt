@@ -36,10 +36,6 @@ class SpinnerTypeAdapter(context: Context, @LayoutRes private val layoutResource
         val img = view.findViewById<ImageView>(R.id.img_type)
         val txt = view.findViewById<TextView>(R.id.txt_type_name)
 
-//        Glide.with(img.context)
-//            .load(types[position].thumbnailImage)
-//            .into(img)
-
         LoadImage.setImageUrl(img, item.thumbnailImage)
         txt.text = item.name
 

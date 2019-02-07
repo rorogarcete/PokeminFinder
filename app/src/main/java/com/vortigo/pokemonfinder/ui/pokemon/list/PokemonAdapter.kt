@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_pokemon.view.*
  */
 class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
-    private lateinit var pokemons: List<Pokemon>
+    private var pokemons: List<Pokemon> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_pokemon, parent, false)
@@ -35,12 +35,12 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = pokemons.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val mContentView: TextView = mView.txt_name_pokemon
         val imgPokemon: ImageView = mView.img_pokemon
     }
 
-    public fun setList(pokemonList: List<Pokemon>) {
+    fun setList(pokemonList: List<Pokemon>) {
         this.pokemons = emptyList()
         this.pokemons = pokemonList
     }

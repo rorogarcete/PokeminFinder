@@ -14,7 +14,14 @@ import com.vortigo.pokemonfinder.ui.base.BaseFragment
 import javax.inject.Inject
 import android.support.v7.widget.DividerItemDecoration
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
+import timber.log.Timber
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Fragment representing list of Pokemons for Type
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
 
     @Inject lateinit var presenter: PokemonListContract.PokemonPresenter
@@ -39,8 +46,7 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.hasFixedSize()
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
-
-        //pokemonAdapter = PokemonAdapter()
+        recyclerView.adapter = pokemonAdapter
 
         return view
     }
@@ -66,16 +72,13 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
         progressBar.visibility = View.GONE
     }
 
-    // TODO Implemnt snackbar for show error
-    override fun onEntityError(error: String) {}
+    override fun onEntityError(error: String) {
+        Timber.e(error)
+    }
 
     override fun loadPokemons(pokemons: List<Pokemon>) {
         pokemonAdapter.setList(pokemons)
-        recyclerView.adapter = pokemonAdapter
-    }
-
-    public fun loadPokemonsByFinder(pokemons: List<Pokemon>) {
-        pokemonAdapter.setList(pokemons)
+        pokemonAdapter.notifyDataSetChanged()
     }
 
     //Local Methods

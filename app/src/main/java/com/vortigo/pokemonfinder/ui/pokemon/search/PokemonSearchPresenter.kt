@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * @author rorogarcete
  * @version 0.0.1
- * Fragment representing list of the Pokemons
+ * Presenter class of MVP Architecture
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
 class PokemonSearchPresenter @Inject constructor(
@@ -31,7 +31,7 @@ class PokemonSearchPresenter @Inject constructor(
         subscriptions.clear()
     }
 
-    override fun getPokemonsByName(name: String) {
+    override fun getPokemonsByFilter(name: String) {
         view.showProgress()
         val subscr = dataSource.getPokemonsByFilter(name)
             .subscribeOn(subscriberScheduler)
