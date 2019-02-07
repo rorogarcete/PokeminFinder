@@ -37,12 +37,16 @@ class PokemonSearchPresenterTest {
     @Test
     fun loadPokemonsByFilter() {
         val pokemons = getDummyList()
+        val query = "Bulbasaur"
+        var error = "error"
 
-        Mockito.`when`(dataSource.getPokemonsByFilter("Bulbasaur")).thenReturn(Observable.fromArray(pokemons))
+        Mockito.`when`(dataSource.getPokemonsByFilter(query)).thenReturn(Observable.fromArray(pokemons))
+
+        presenter.getPokemonsByFilter(query)
 
         verify(view).showProgress()
         verify(view).loadPokemons(pokemons)
-        verify(view, never()).onEntityError("Error")
+        verify(view, never()).onEntityError(error)
     }
 
     fun getDummyList(): List<Pokemon> {

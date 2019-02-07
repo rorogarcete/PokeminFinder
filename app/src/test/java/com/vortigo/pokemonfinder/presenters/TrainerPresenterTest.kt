@@ -35,12 +35,13 @@ class TrainerPresenterTest {
     @Test
     fun saveTrainer() {
         val trainer = getTrainerMock()
+        val type = "normal"
 
         Mockito.`when`(dataSource.saveTrainer(trainer)).thenReturn(true)
 
-        verify(view).showProgress()
-        verify(view).goToHome("normal")
-        verify(view, never()).onEntityError("Error")
+        presenter.saveTrainer(trainer)
+
+        verify(view).goToHome(type)
     }
 
     fun getTrainerMock(): Trainer {

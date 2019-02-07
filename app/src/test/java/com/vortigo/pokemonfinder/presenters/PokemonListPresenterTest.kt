@@ -37,8 +37,11 @@ class PokemonListPresenterTest {
     @Test
     fun loadPokemonsByType() {
         val pokemons = getDummyList()
+        val type = "normal"
 
-        Mockito.`when`(dataSource.getPokemonsByType("normal")).thenReturn(Observable.fromArray(pokemons))
+        Mockito.`when`(dataSource.getPokemonsByType(type)).thenReturn(Observable.fromArray(pokemons))
+
+        presenter.getPokemonsFavoriteByType(type)
 
         verify(view).showProgress()
         verify(view).loadPokemons(pokemons)
