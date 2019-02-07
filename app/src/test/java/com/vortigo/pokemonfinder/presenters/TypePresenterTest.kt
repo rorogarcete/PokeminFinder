@@ -1,17 +1,21 @@
 package com.vortigo.pokemonfinder.presenters
 
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypeContract
 import com.vortigo.pokemonfinder.ui.pokemon.types.TypePresenter
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.lang.Exception
 
-class TestTypePresenter {
+class TypePresenterTest {
 
     @Mock
     lateinit var dataSource: DataSource
@@ -33,7 +37,13 @@ class TestTypePresenter {
     fun loadTypes() {
         val types = getDummyList()
 
-        dataSource.getTypes()
+        Mockito.`when`(dataSource.getTypes()).thenReturn(Observable.fromArray(types))
+
+        presenter.getFavoriteTypes()
+
+        verify(view).showProgress()
+        verify(view).loadTypes(types)
+        verify(view, never()).onEntityError("Error")
     }
 
     fun getDummyList(): List<Type> {

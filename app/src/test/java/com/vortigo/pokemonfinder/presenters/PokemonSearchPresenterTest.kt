@@ -1,20 +1,22 @@
 package com.vortigo.pokemonfinder.presenters
 
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.pokemon.search.PokemonSearchContract
 import com.vortigo.pokemonfinder.ui.pokemon.search.PokemonSearchPresenter
-import com.vortigo.pokemonfinder.ui.pokemon.types.TypeContract
-import com.vortigo.pokemonfinder.ui.pokemon.types.TypePresenter
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.lang.Exception
 
-class TestPokemonSearchPresenter {
+class PokemonSearchPresenterTest {
 
     @Mock
     lateinit var dataSource: DataSource
@@ -36,7 +38,11 @@ class TestPokemonSearchPresenter {
     fun loadPokemonsByFilter() {
         val pokemons = getDummyList()
 
-        dataSource.getPokemonsByFilter("Bulbasaur")
+        Mockito.`when`(dataSource.getPokemonsByFilter("Bulbasaur")).thenReturn(Observable.fromArray(pokemons))
+
+        verify(view).showProgress()
+        verify(view).loadPokemons(pokemons)
+        verify(view, never()).onEntityError("Error")
     }
 
     fun getDummyList(): List<Pokemon> {

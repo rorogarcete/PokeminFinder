@@ -1,5 +1,7 @@
 package com.vortigo.pokemonfinder.presenters
 
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.models.Trainer
 import com.vortigo.pokemonfinder.ui.trainer.TrainerContract
@@ -8,10 +10,11 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.lang.Exception
 
-class TestTrainerPresenter {
+class TrainerPresenterTest {
 
     @Mock
     lateinit var dataSource: DataSource
@@ -33,7 +36,11 @@ class TestTrainerPresenter {
     fun saveTrainer() {
         val trainer = getTrainerMock()
 
-        dataSource.saveTrainer(trainer)
+        Mockito.`when`(dataSource.saveTrainer(trainer)).thenReturn(true)
+
+        verify(view).showProgress()
+        verify(view).goToHome("normal")
+        verify(view, never()).onEntityError("Error")
     }
 
     fun getTrainerMock(): Trainer {
