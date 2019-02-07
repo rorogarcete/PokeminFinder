@@ -9,6 +9,12 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Presenter class of MVP Architecture
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class TrainerPresenter @Inject constructor(
     var dataSource: DataSource,
     val subscriberScheduler : Scheduler = Schedulers.io(),

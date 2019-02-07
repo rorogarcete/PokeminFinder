@@ -1,5 +1,11 @@
 package com.vortigo.pokemonfinder.helper
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Util class
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class Util {
 
     companion object {
