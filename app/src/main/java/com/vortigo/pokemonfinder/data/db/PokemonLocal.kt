@@ -6,6 +6,12 @@ import com.vortigo.pokemonfinder.models.Type
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Implementation of [DataSource] for load local JSON
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class PokemonLocal(private val context: Context) { // DataSource
 
     var POKEMONS: MutableList<Pokemon> = mutableListOf()
@@ -83,7 +89,7 @@ class PokemonLocal(private val context: Context) { // DataSource
 //
 //    }
 //
-//    // TODO add filter by type
+//
 //    override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
 //
 //    }
@@ -92,12 +98,12 @@ class PokemonLocal(private val context: Context) { // DataSource
 //
 //    }
 //
-//    // TODO Change for Completable
+//
 //    override fun saveTrainer(trainer: Trainer) {
 //
 //    }
 //
-//    // TODO Change query for get one Trainer
+//
 //    override fun getTrainer(): Observable<Trainer> {
 //        return null
 //    }

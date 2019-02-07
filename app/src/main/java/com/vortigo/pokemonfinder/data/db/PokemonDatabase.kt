@@ -1,6 +1,5 @@
 package com.vortigo.pokemonfinder.data.db
 
-import android.util.Log
 import com.vicpin.krealmextensions.*
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.data.mapper.PokemonMapper
@@ -15,6 +14,12 @@ import com.vortigo.pokemonfinder.models.Type
 import io.reactivex.Observable
 import io.realm.Sort
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Implementation of [DataSource] for retrieve data of the Realm Database
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class PokemonDatabase: DataSource {
 
     override fun getTypes(): Observable<List<Type>> {
@@ -28,8 +33,8 @@ class PokemonDatabase: DataSource {
     }
 
     override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.ASCENDING)
-        { equalTo("type.name", type) }
+        val pokemons = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
+        { equalTo(FIELD_TYPE_NAME, type) }
 
         return  pokemons.map {
             it.map {
@@ -39,8 +44,8 @@ class PokemonDatabase: DataSource {
     }
 
     override fun getPokemonsByFilter(query: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.ASCENDING)
-        { equalTo("name", query) }
+        val pokemons = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
+        { contains(FIELD_NAME, query) }
 
         return  pokemons.map {
             it.map {
@@ -49,19 +54,9 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
-    // TODO Change for Completable
     override fun saveTrainer(trainer: Trainer) {
         val trainerTable = TrainerMapper.fromPresenter(trainer)
         trainerTable.save()
-    }
-
-    // TODO Change query for get one Trainer
-    override fun getTrainer(): Observable<Trainer> {
-        val trainer = TrainerTable().queryAllAsFlowable()
-
-        return trainer.map {
-                TrainerMapper.toPresenter(it.get(0))
-        }.toObservable()
     }
 
     override fun getTypePokemonFavorite(): Observable<List<Trainer>> {
@@ -72,6 +67,11 @@ class PokemonDatabase: DataSource {
                 TrainerMapper.toPresenter(it)
             }
         }.toObservable()
+    }
+
+    companion object {
+        val FIELD_NAME = "name"
+        val FIELD_TYPE_NAME = "type.name"
     }
 
 }

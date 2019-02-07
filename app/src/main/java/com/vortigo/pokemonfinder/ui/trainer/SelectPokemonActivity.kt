@@ -2,6 +2,8 @@ package com.vortigo.pokemonfinder.ui.trainer
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
@@ -12,6 +14,7 @@ import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.base.BaseActivity
 import com.vortigo.pokemonfinder.ui.pokemon.search.PokemonSearchActivity
 import kotlinx.android.synthetic.main.activity_select_pokemon.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -24,11 +27,15 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
 
     @Inject lateinit var presenter: TrainerContract.TrainerPresenter
 
+    private lateinit var progressBar: ProgressBar
+
     private var trainerName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_pokemon)
+
+        progressBar = findViewById(R.id.progress_indicator)
 
         setInit()
         setInjection()
@@ -50,20 +57,24 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
         finish(ActivityAnimation.SLIDE_RIGHT)
     }
 
-    override fun goToHome() {
+    override fun goToHome(type: String) {
         if (!PokemonPreference().getInitDate(this).isEmpty()) {
-            PokemonPreference().setTypeFavorite(this, trainerName)
+            PokemonPreference().setTypeFavorite(this, type)
             startActivity(Intent(this, PokemonSearchActivity::class.java), ActivityAnimation.SLIDE_LEFT)
         }
     }
 
-    // TODO Implement loading with ProgressBar
-    override fun showProgress() { }
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
 
-    override fun hideProgress() { }
+    override fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
 
-    // TODO Implement show error con SnackBar
-    override fun onEntityError(error: String) {}
+    override fun onEntityError(error: String) {
+        Timber.e(error)
+    }
 
     override fun loadTypes(types: List<Type>) {
         val typeAdapter = SpinnerTypeAdapter(this, R.layout.spinner_item, types)

@@ -8,6 +8,7 @@ import com.vortigo.pokemonfinder.di.DaggerPokemonComponent
 import com.vortigo.pokemonfinder.di.PokemonComponent
 import com.vortigo.pokemonfinder.di.PokemonModule
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import timber.log.Timber
 
 /**
@@ -46,10 +47,10 @@ class PokemonFinderApp: Application() {
 
     private fun initRealm() {
         Realm.init(this)
-//        RealmConfiguration.Builder()
-//            .name("pokemons-db")
-//            .schemaVersion(1)
-//            .deleteRealmIfMigrationNeeded().build()
+        RealmConfiguration.Builder()
+            .name("pokemons-db")
+            .schemaVersion(1)
+            .deleteRealmIfMigrationNeeded().build()
     }
 
     private fun initPref() {
