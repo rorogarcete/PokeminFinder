@@ -14,6 +14,12 @@ import com.vortigo.pokemonfinder.models.Type
 import io.reactivex.Observable
 import io.realm.Sort
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * Implementation of [DataSource] for retrieve data of the Realm Database
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 class PokemonDatabase: DataSource {
 
     override fun getTypes(): Observable<List<Type>> {
@@ -26,9 +32,9 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
-    // TODO add filter by type
-    override fun getPokemonsByType(name: Type): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().querySortedAsFlowable("name", Sort.DESCENDING)
+    override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
+        val pokemons = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
+        { equalTo(FIELD_TYPE_NAME, type) }
 
         return  pokemons.map {
             it.map {
@@ -38,9 +44,8 @@ class PokemonDatabase: DataSource {
     }
 
     override fun getPokemonsByFilter(query: String): Observable<List<Pokemon>> {
-        val pokemons = PokemonTable().queryAsFlowable {
-            equalTo("name", query)
-        }
+        val pokemons = PokemonTable().querySortedAsFlowable(FIELD_NAME, Sort.ASCENDING)
+        { contains(FIELD_NAME, query) }
 
         return  pokemons.map {
             it.map {
@@ -52,7 +57,6 @@ class PokemonDatabase: DataSource {
     override fun saveTrainer(trainer: Trainer) {
         val trainerTable = TrainerMapper.fromPresenter(trainer)
         trainerTable.save()
-
     }
 
     override fun getTypePokemonFavorite(): Observable<List<Trainer>> {
@@ -63,6 +67,11 @@ class PokemonDatabase: DataSource {
                 TrainerMapper.toPresenter(it)
             }
         }.toObservable()
+    }
+
+    companion object {
+        val FIELD_NAME = "name"
+        val FIELD_TYPE_NAME = "type.name"
     }
 
 }

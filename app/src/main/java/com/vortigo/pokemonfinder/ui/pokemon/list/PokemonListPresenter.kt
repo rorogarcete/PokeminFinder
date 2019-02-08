@@ -1,7 +1,6 @@
-package com.vortigo.pokemonfinder.ui.trainer
+package com.vortigo.pokemonfinder.ui.pokemon.list
 
 import com.vortigo.pokemonfinder.data.DataSource
-import com.vortigo.pokemonfinder.models.Trainer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,30 +14,35 @@ import javax.inject.Inject
  * Presenter class of MVP Architecture
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class TrainerPresenter @Inject constructor(
+class PokemonListPresenter @Inject constructor(
     var dataSource: DataSource,
     val subscriberScheduler : Scheduler = Schedulers.io(),
-    val observerScheduler : Scheduler = AndroidSchedulers.mainThread()): TrainerContract.TrainerPresenter {
+    val observerScheduler : Scheduler = AndroidSchedulers.mainThread()): PokemonListContract.PokemonPresenter {
 
-    private lateinit var view: TrainerContract.TrainerView
+    private lateinit var view: PokemonListContract.PokemonView
 
     private val subscriptions = CompositeDisposable()
 
-    override fun attachView(t: TrainerContract.TrainerView) {
-        this.view = t
+    override fun attachView(t: PokemonListContract.PokemonView) {
+        view = t
     }
 
     override fun detachView() {
         subscriptions.clear()
     }
 
-    override fun getTypes() {
-        val subscr = dataSource.getTypes()
+    /**
+     * Get Pokemons selected to trainer
+     */
+    override fun getPokemonsFavoriteByType(type: String) {
+        view.showProgress()
+        val subscr = dataSource.getPokemonsByType(type)
             .subscribeOn(subscriberScheduler)
             .observeOn(observerScheduler)
             .subscribe(
-                { types ->
-                    view.loadTypes(types)
+                { pokemons ->
+                    view.loadPokemons(pokemons)
+                    view.hideProgress()
                 },
                 { throwable ->
                     Timber.e(throwable)
@@ -52,9 +56,4 @@ class TrainerPresenter @Inject constructor(
         subscriptions.add(subscr)
     }
 
-    override fun saveTrainer(trainer: Trainer) {
-        dataSource.saveTrainer(trainer)
-
-        view.goToHome(trainer.typePokemon)
-    }
 }

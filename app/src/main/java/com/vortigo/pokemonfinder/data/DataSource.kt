@@ -5,10 +5,16 @@ import com.vortigo.pokemonfinder.models.Trainer
 import com.vortigo.pokemonfinder.models.Type
 import io.reactivex.Observable
 
+/**
+ * @author rorogarcete
+ * @version 0.0.1
+ * DataSource interface for repository pattern
+ * Copyright 2019 Vortigo Inc. All rights reserved
+ */
 interface DataSource {
     fun getTypes(): Observable<List<Type>>
 
-    fun getPokemonsByType(name: Type): Observable<List<Pokemon>>
+    fun getPokemonsByType(type: String): Observable<List<Pokemon>>
 
     fun getPokemonsByFilter(query: String): Observable<List<Pokemon>>
 

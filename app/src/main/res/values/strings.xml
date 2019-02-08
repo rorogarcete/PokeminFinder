@@ -7,4 +7,5 @@
     <string name="msg_register_name">First we need to know your name..</string>
     <string name="msg_select_gretting">Hello, trainer Dev!</string>
     <string name="msg_select_favorite">...now tell us wich is your favorite Pokémon type:</string>
+    <string name="action_search">Search</string>
 </resources>

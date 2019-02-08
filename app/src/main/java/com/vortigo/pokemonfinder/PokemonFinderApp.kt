@@ -60,7 +60,6 @@ class PokemonFinderApp: Application() {
     private fun makeSeedData() {
         val realm = Realm.getDefaultInstance()
         val seed = PokemonSeed(this, realm)
-        //Log.d("seed", realm.path)
         seed.populateData()
     }
 

@@ -2,7 +2,6 @@ package com.vortigo.pokemonfinder.ui.trainer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.helper.Util
 import com.vortigo.pokemonfinder.ui.base.BaseActivity
@@ -39,7 +38,6 @@ class RegisterTrainerActivity : BaseActivity() {
         if (!trainerName.isEmpty()) {
             val intent = Intent(this, SelectPokemonActivity::class.java)
             intent.putExtra(Util.TRAINER_NAME, trainerName)
-            Log.d("NAME", trainerName)
             startActivity(Intent(intent), ActivityAnimation.SLIDE_LEFT)
         } else {
             //show validation

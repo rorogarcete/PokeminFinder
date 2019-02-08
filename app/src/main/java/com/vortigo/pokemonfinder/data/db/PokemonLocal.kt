@@ -1,35 +1,26 @@
 package com.vortigo.pokemonfinder.data.db
 
 import android.content.Context
-import com.vicpin.krealmextensions.query
-import com.vicpin.krealmextensions.queryFirst
-import com.vicpin.krealmextensions.save
-import com.vicpin.krealmextensions.transaction
-import com.vortigo.pokemonfinder.data.model.PokemonTable
-import com.vortigo.pokemonfinder.data.model.TypeTable
-import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
-import com.vortigo.pokemonfinder.helper.Util
-import io.realm.Realm
-import io.realm.RealmList
+import com.vortigo.pokemonfinder.models.Pokemon
+import com.vortigo.pokemonfinder.models.Type
 import org.json.JSONArray
 import org.json.JSONObject
 
 /**
  * @author rorogarcete
  * @version 0.0.1
- * Seed Class for retrieve data from JSON files and save with Realm.io
+ * Implementation of [DataSource] for load local JSON
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class PokemonSeed(private val context: Context, private val realm: Realm) {
+class PokemonLocal(private val context: Context) { // DataSource
 
-    fun populateData() {
+    var POKEMONS: MutableList<Pokemon> = mutableListOf()
 
-        realm.transaction {
-            createTypes()
-            createPokemons()
-        }
+    var TYPES: MutableList<Type> = mutableListOf()
 
-        PokemonPreference().setInitData(context, Util.INIT_DATA)
+    init {
+        createTypes()
+        createPokemons()
     }
 
     private fun loadJSON(jsonFile: String): String {
@@ -49,22 +40,13 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
 
         for (i in 0..(jsonPokemons.length() - 1)) {
             val item = jsonPokemons.getJSONObject(i)
-            val types = item.getJSONArray("type")
-            val typesTable: RealmList<TypeTable> = RealmList()
 
-            for (j in 0..(types.length() - 1)) {
-                val t = types.get(j)
-                val type = TypeTable().query { equalTo("name", t.toString()) }[0]
-
-                if (type.isValid) typesTable.add(type)
-            }
-
-            PokemonTable(
+            val pokemon = Pokemon(
                 item.getInt("id"),
-                //item.getJSONArray("abilities") as RealmList<String>,
-                item.getString("detailPageURL").toString(),
+                //item.get("abilities") as RealmList<String>,
+                item.getString("detailPageURL"),
                 item.getDouble("weight"),
-                //item.getJSONArray("weakness") as RealmList<String>,
+                //item.get("weakness") as RealmList<String>,
                 item.getString("number"),
                 item.getDouble("height"),
                 item.getString("collectibles_slug"),
@@ -73,8 +55,10 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
                 item.getString("name"),
                 item.getString("thumbnailAltText"),
                 item.getString("thumbnailImage"),
-                typesTable
-            ).save()
+                item.getJSONArray("type") as List<Type>
+            )
+
+            POKEMONS.add(pokemon)
         }
     }
 
@@ -83,7 +67,16 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
         val obj = JSONObject(json)
         val types = obj.getJSONArray(TYPES_RESULTS)
 
-        realm.createAllFromJson(TypeTable::class.java, types)
+        for (i in 0..(types.length() - 1)) {
+            val item = types.getJSONObject(i)
+
+            val type = Type(
+                item.getString("name"),
+                item.getString("thumbnailImage")
+            )
+
+            TYPES.add(type)
+        }
     }
 
     companion object {
@@ -91,5 +84,32 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
         val TYPES_FILE = "types.json"
         val TYPES_RESULTS = "results"
     }
+
+//    override fun getTypes(): Observable<List<Type>> {
+//
+//    }
+//
+//
+//    override fun getPokemonsByType(type: String): Observable<List<Pokemon>> {
+//
+//    }
+//
+//    override fun getPokemonsByFilter(query: String): Observable<List<Pokemon>> {
+//
+//    }
+//
+//
+//    override fun saveTrainer(trainer: Trainer) {
+//
+//    }
+//
+//
+//    override fun getTrainer(): Observable<Trainer> {
+//        return null
+//    }
+//
+//    override fun getTypePokemonFavorite(): Observable<List<Trainer>> {
+//
+//    }
 
 }

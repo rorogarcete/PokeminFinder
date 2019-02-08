@@ -48,4 +48,6 @@
             android:background="@drawable/next"
             android:contentDescription="@string/app_name"/>
 
+    <include android:id="@+id/progress_indicator" layout="@layout/progress_view"/>
+
 </RelativeLayout>

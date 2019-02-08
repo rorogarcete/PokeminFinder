@@ -13,7 +13,7 @@
     <dimen name="text_size_20">20sp</dimen>
 
     <!--Dimens for imageView-->
-    <dimen name="img_dimen">120dp</dimen>
+    <dimen name="img_dimen">80dp</dimen>
 
     <!--Dimens for margins-->
     <dimen name="margin_8dp">8dp</dimen>

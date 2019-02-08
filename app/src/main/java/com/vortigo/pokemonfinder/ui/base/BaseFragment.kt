@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.WindowManager
-
 import com.vortigo.pokemonfinder.R
 
 /**
@@ -14,7 +13,7 @@ import com.vortigo.pokemonfinder.R
  * Class Base to Fragment
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,7 +1,6 @@
-package com.vortigo.pokemonfinder.ui.trainer
+package com.vortigo.pokemonfinder.ui.pokemon.types
 
 import com.vortigo.pokemonfinder.data.DataSource
-import com.vortigo.pokemonfinder.models.Trainer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,16 +14,16 @@ import javax.inject.Inject
  * Presenter class of MVP Architecture
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class TrainerPresenter @Inject constructor(
+class TypePresenter @Inject constructor(
     var dataSource: DataSource,
     val subscriberScheduler : Scheduler = Schedulers.io(),
-    val observerScheduler : Scheduler = AndroidSchedulers.mainThread()): TrainerContract.TrainerPresenter {
+    val observerScheduler : Scheduler = AndroidSchedulers.mainThread()): TypeContract.TypePresenter {
 
-    private lateinit var view: TrainerContract.TrainerView
+    private lateinit var view: TypeContract.TypeView
 
     private val subscriptions = CompositeDisposable()
 
-    override fun attachView(t: TrainerContract.TrainerView) {
+    override fun attachView(t: TypeContract.TypeView) {
         this.view = t
     }
 
@@ -32,13 +31,15 @@ class TrainerPresenter @Inject constructor(
         subscriptions.clear()
     }
 
-    override fun getTypes() {
+    override fun getFavoriteTypes() {
+        view.showProgress()
         val subscr = dataSource.getTypes()
             .subscribeOn(subscriberScheduler)
             .observeOn(observerScheduler)
             .subscribe(
                 { types ->
                     view.loadTypes(types)
+                    view.hideProgress()
                 },
                 { throwable ->
                     Timber.e(throwable)
@@ -52,9 +53,4 @@ class TrainerPresenter @Inject constructor(
         subscriptions.add(subscr)
     }
 
-    override fun saveTrainer(trainer: Trainer) {
-        dataSource.saveTrainer(trainer)
-
-        view.goToHome(trainer.typePokemon)
-    }
 }
