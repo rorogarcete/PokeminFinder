@@ -1,7 +1,6 @@
 package com.vortigo.pokemonfinder.data.db
 
 import android.content.Context
-import com.vicpin.krealmextensions.query
 import com.vicpin.krealmextensions.queryFirst
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.transaction
@@ -54,17 +53,15 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
 
             for (j in 0..(types.length() - 1)) {
                 val t = types.get(j)
-                val type = TypeTable().query { equalTo("name", t.toString()) }[0]
+                val type = TypeTable().queryFirst { equalTo("name", t.toString()) }
 
-                if (type.isValid) typesTable.add(type)
+                if (type!!.isValid) typesTable.add(type)
             }
 
             PokemonTable(
                 item.getInt("id"),
-                //item.getJSONArray("abilities") as RealmList<String>,
                 item.getString("detailPageURL").toString(),
                 item.getDouble("weight"),
-                //item.getJSONArray("weakness") as RealmList<String>,
                 item.getString("number"),
                 item.getDouble("height"),
                 item.getString("collectibles_slug"),
