@@ -55,7 +55,7 @@ class PokemonSeed(private val context: Context, private val realm: Realm) {
                 val t = types.get(j)
                 val type = TypeTable().queryFirst { equalTo("name", t.toString()) }
 
-                if (type!!.isValid) typesTable.add(type)
+                if (type != null) typesTable.add(type)
             }
 
             PokemonTable(
