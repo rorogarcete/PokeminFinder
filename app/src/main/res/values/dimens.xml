@@ -14,6 +14,7 @@
 
     <!--Dimens for imageView-->
     <dimen name="img_dimen">80dp</dimen>
+    <dimen name="img_dimen_pokemon">50dp</dimen>
 
     <!--Dimens for margins-->
     <dimen name="margin_8dp">8dp</dimen>
@@ -25,5 +26,5 @@
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="margin_top_90">90dp</dimen>
     <dimen name="img_pokemon_width">150</dimen>
-    <dimen name="margin_top_home">40dp</dimen>
+    <dimen name="margin_top_home">60dp</dimen>
 </resources>

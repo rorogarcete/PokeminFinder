@@ -8,9 +8,11 @@
 
     <ImageView
         android:id="@+id/img_pokemon"
-        android:layout_width="@dimen/img_dimen"
-        android:layout_height="@dimen/img_dimen"
+        android:layout_width="@dimen/img_dimen_pokemon"
+        android:layout_height="@dimen/img_dimen_pokemon"
         android:layout_margin="@dimen/margin_8dp"
+        android:background="@color/blue_500"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/app_name" />
 
     <TextView
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_8dp"
         android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size"
         android:layout_gravity="center_vertical"/>
 
 </LinearLayout>

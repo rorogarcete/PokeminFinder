@@ -92,7 +92,8 @@ class SelectPokemonActivity: BaseActivity(), TrainerContract.TrainerView {
     }
 
     private fun setInit() {
-        trainerName = intent.getStringExtra(Util.TRAINER_NAME)
+        // asign value for testing purpose
+        val trainerName = intent.getStringExtra(Util.TRAINER_NAME) ?: "normal"
 
         img_register_trainer.setOnClickListener {
             save(trainerName)
