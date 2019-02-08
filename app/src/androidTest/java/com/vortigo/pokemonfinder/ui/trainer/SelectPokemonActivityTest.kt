@@ -22,7 +22,6 @@ import org.junit.Rule
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 
-
 @RunWith(AndroidJUnit4::class)
 class SelectPokemonActivityTest {
 
@@ -42,14 +41,14 @@ class SelectPokemonActivityTest {
     fun whenSpinnerIsFilled_andClickOnNextButton_shouldOpenPokemonSearchActivity() {
         Intents.init()
 
+        val type = "normal"
+
         onView(ViewMatchers.withId(R.id.spinner_types)).perform(ViewActions.click())
-        onData(AllOf.allOf((IsInstanceOf.instanceOf(Type::class.java)))).perform(ViewActions.click())
-        onView(ViewMatchers.withId(R.id.spinner_types)).check(ViewAssertions.matches(ViewMatchers.withSpinnerText(StringContains.containsString("normal"))))
+        onData(IsInstanceOf.instanceOf(Type::class.java)).atPosition(0).perform(ViewActions.click())
+        onView(ViewMatchers.withId(R.id.spinner_types)).check(ViewAssertions.matches(ViewMatchers.withSpinnerText(StringContains.containsString(type))))
 
+        onView(ViewMatchers.withId(R.id.img_register_trainer)).perform(ViewActions.click())
         val matcher = IntentMatchers.hasComponent(PokemonSearchActivity::class.java.name)
-
-        Espresso.onView(ViewMatchers.withId(R.id.img_register_trainer)).perform(ViewActions.click())
-
         Intents.intended(matcher)
 
         Intents.release()
