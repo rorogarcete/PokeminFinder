@@ -52,9 +52,10 @@
     <style name="spinner_item_style" parent="Base.Widget.AppCompat.Spinner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
-        <!--<item name="android:background">@drawable/spinner_bg</item>-->
+        <item name="android:background">@drawable/spinner_bg</item>
         <item name="android:paddingTop">@dimen/padding_8dp</item>
         <item name="android:paddingBottom">@dimen/padding_8dp</item>
+        <!--<item name="android:strokeLineCap">round</item>-->
     </style>
 
 </resources>

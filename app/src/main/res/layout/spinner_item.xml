@@ -4,8 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginLeft="@dimen/margin_16dp">
+        android:layout_marginStart="@dimen/margin_16dp">
 
     <ImageView
             android:id="@+id/img_type"
@@ -21,6 +20,8 @@
             android:layout_marginLeft="@dimen/margin_16dp"
             android:layout_marginRight="@dimen/margin_16dp"
             android:textSize="@dimen/text_size_20"
+            android:textStyle="bold"
             android:textColor="@color/colorBlack"/>
+
 </LinearLayout>
 

@@ -1,6 +1,5 @@
 package com.vortigo.pokemonfinder.ui.trainer
 
-import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.matcher.IntentMatchers
@@ -13,7 +12,6 @@ import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.runner.AndroidJUnit4
 import com.vortigo.pokemonfinder.models.Type
-import org.hamcrest.core.AllOf
 import org.hamcrest.core.IsInstanceOf
 import org.hamcrest.core.StringContains
 import org.junit.runner.RunWith

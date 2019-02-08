@@ -40,15 +40,15 @@
 
     <Spinner
             android:id="@+id/spinner_types"
-            style="@style/spinner_item_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginLeft="@dimen/margin_32dp"
             android:layout_marginRight="@dimen/margin_32dp"
             android:labelFor="@+id/txt_type_pokemon"
-            android:layout_below="@+id/txt_type_pokemon" android:clipChildren="false"
-            android:backgroundTint="@color/colorWhite"/>
+            android:layout_below="@+id/txt_type_pokemon"
+            android:backgroundTint="@color/colorWhite" android:clipChildren="false"
+            android:addStatesFromChildren="false"/>
 
     <ImageView
             android:id="@+id/img_register_trainer"

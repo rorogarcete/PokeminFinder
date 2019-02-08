@@ -1,6 +1,5 @@
 package com.vortigo.pokemonfinder.presenters
 
-import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.vortigo.pokemonfinder.data.DataSource
 import com.vortigo.pokemonfinder.models.Trainer
