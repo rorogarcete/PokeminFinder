@@ -56,4 +56,26 @@ class PokemonListPresenter @Inject constructor(
         subscriptions.add(subscr)
     }
 
+    override fun makeOrderedPokemonByName(type: String) {
+        view.showProgress()
+        val subscr = dataSource.getPokemonsOrderedByType(type)
+            .subscribeOn(subscriberScheduler)
+            .observeOn(observerScheduler)
+            .subscribe(
+                { pokemons ->
+                    view.loadPokemons(pokemons)
+                    view.hideProgress()
+                },
+                { throwable ->
+                    Timber.e(throwable)
+                    view.hideProgress()
+                },
+                {
+                    view.hideProgress()
+                }
+            )
+
+        subscriptions.add(subscr)
+    }
+
 }

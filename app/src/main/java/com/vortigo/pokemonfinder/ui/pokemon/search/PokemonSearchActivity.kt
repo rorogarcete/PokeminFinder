@@ -78,13 +78,13 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
-        searchView.setSearchableInfo( searchManager.getSearchableInfo(componentName))
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.maxWidth = Integer.MAX_VALUE
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 presenter.getPokemonsByFilter(query)
-                return true
+                return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {

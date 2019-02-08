@@ -13,7 +13,10 @@ import com.vortigo.pokemonfinder.models.Pokemon
 import com.vortigo.pokemonfinder.ui.base.BaseFragment
 import javax.inject.Inject
 import android.support.v7.widget.DividerItemDecoration
+import android.widget.LinearLayout
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
+import kotlinx.android.synthetic.main.fragment_pokemon_list.*
+import kotlinx.android.synthetic.main.fragment_pokemon_list.view.*
 import timber.log.Timber
 
 /**
@@ -28,6 +31,7 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private lateinit var linearLayout: LinearLayout
 
     private var pokemonAdapter = PokemonAdapter()
 
@@ -43,10 +47,14 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
         progressBar = view.findViewById(R.id.progress_indicator)
 
         recyclerView = view.findViewById(R.id.pokemonRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.hasFixedSize()
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = pokemonAdapter
+
+        linearLayout = view.findViewById(R.id.container_ordered)
+
+        makeOrderedPokemon()
 
         return view
     }
@@ -86,17 +94,20 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
         PokemonFinderApp.instance.component.inject(this)
     }
 
+    private fun makeOrderedPokemon() {
+        linearLayout.setOnClickListener {
+            presenter.makeOrderedPokemonByName(PokemonPreference().getTypeFavorite(activity!!.baseContext))
+        }
+    }
+
     private fun getPokemonsFavorite() {
-        val type = PokemonPreference().getTypeFavorite(activity!!.baseContext)
-        presenter.getPokemonsFavoriteByType(type)
+        presenter.getPokemonsFavoriteByType(PokemonPreference().getTypeFavorite(activity!!.baseContext))
     }
 
     companion object {
         @JvmStatic
         fun newInstance(): PokemonListFragment {
-            val fragment = PokemonListFragment()
-
-            return fragment
+            return PokemonListFragment()
         }
     }
 }

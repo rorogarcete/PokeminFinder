@@ -26,17 +26,15 @@ class PokemonFinderApp: Application() {
         super.onCreate()
         instance = this
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
         initGraph()
+
         initPref()
+
         initRealm()
 
-        if (PokemonPreference().getInitDate(this).isEmpty()) {
-            makeSeedData()
-        }
+        makeSeedData()
+
+        initDebug()
     }
 
     private fun initGraph() {
@@ -48,7 +46,7 @@ class PokemonFinderApp: Application() {
     private fun initRealm() {
         Realm.init(this)
         RealmConfiguration.Builder()
-            .name("pokemons-db")
+            .name(POKEMON_DB)
             .schemaVersion(1)
             .deleteRealmIfMigrationNeeded().build()
     }
@@ -58,13 +56,23 @@ class PokemonFinderApp: Application() {
     }
 
     private fun makeSeedData() {
-        val realm = Realm.getDefaultInstance()
-        val seed = PokemonSeed(this, realm)
-        seed.populateData()
+        if (PokemonPreference().getInitDate(this).isEmpty()) {
+            val realm = Realm.getDefaultInstance()
+            val seed = PokemonSeed(this, realm)
+            seed.populateData()
+        }
+    }
+
+    private fun initDebug() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     companion object {
         lateinit var instance : PokemonFinderApp private set
+        var sIsSessionActive: Boolean = false
+        var POKEMON_DB = "pokemons-db"
     }
 
 }

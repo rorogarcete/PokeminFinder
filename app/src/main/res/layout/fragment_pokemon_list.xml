@@ -17,6 +17,7 @@
                     android:id="@+id/txt_pokemon_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size"
                     android:text="@string/msg_title_pokemon"/>
 
             <LinearLayout
@@ -24,8 +25,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true">
+                    android:layout_alignParentEnd="true">
 
                 <TextView
                         android:id="@+id/txt_pokemon_ordered_name"
@@ -33,6 +33,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_8dp"
                         android:layout_marginRight="@dimen/margin_8dp"
+                        android:textSize="@dimen/text_size"
                         android:text="@string/msg_name_pokemon"/>
 
                 <ImageView
@@ -48,13 +49,19 @@
 
     </RelativeLayout>
 
+    <View android:id="@+id/divider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/white_overlay"
+          android:layout_below="@+id/container_labels"/>
+
     <android.support.v7.widget.RecyclerView
             android:id="@+id/pokemonRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/fragment_pokemon"
-            android:layout_below="@+id/container_labels"/>
+            android:layout_below="@+id/divider"/>
 
     <include android:id="@+id/progress_indicator" layout="@layout/progress_view"/>
 
