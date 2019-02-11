@@ -16,6 +16,7 @@ buildscript {
         rxandroid_version = '2.0.2'
 
         dagger2_version = '2.15'
+        circleimageview_version = '3.0.0'
 
         junit_version = '4.12'
         mockito_version = '1.6.0'

@@ -92,6 +92,9 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
+    // CircleImageView
+    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+
     // Unit Testing
     testImplementation "junit:junit:$junit_version"
     testImplementation "com.nhaarman:mockito-kotlin:$mockito_version"
