@@ -3,7 +3,6 @@ package com.vortigo.pokemonfinder.ui.pokemon.types
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +26,12 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     private var listener: onClickListener? = null
 
-    private lateinit var typeAdapter: TypeAdapter
+    private val typeAdapter by lazy { TypeAdapter(listener) }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        retainInstance = true
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
        return inflater.inflate(R.layout.fragment_type_list, container, false)
@@ -82,8 +81,7 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
     }
 
     override fun loadTypes(types: List<Type>) {
-        typeAdapter = TypeAdapter(types, listener)
-        typesRecyclerView.adapter = typeAdapter
+        typeAdapter.setList(types)
     }
 
     //Local Methods
@@ -92,8 +90,14 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
     }
 
     private fun configureRecyclerView() {
-        typesRecyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        typesRecyclerView?.setHasFixedSize(true)
+        typesRecyclerView.apply {
+            setHasFixedSize(true)
+            val linearLayout = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = linearLayout
+            clearOnScrollListeners()
+        }
+
+        typesRecyclerView.adapter = typeAdapter
     }
 
     companion object {

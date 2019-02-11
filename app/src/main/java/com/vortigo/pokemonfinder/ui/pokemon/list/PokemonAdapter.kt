@@ -41,7 +41,7 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
     }
 
     fun setList(pokemonList: List<Pokemon>) {
-        this.pokemons = emptyList()
+        this.pokemons = mutableListOf()
         this.pokemons = pokemonList
         notifyDataSetChanged()
     }

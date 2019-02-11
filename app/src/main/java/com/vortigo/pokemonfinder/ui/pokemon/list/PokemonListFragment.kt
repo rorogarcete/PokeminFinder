@@ -25,7 +25,7 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
 
     @Inject lateinit var presenter: PokemonListContract.PokemonPresenter
 
-    private val adapter = PokemonAdapter()
+    private val adapter by lazy { PokemonAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,6 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
 
     override fun loadPokemons(pokemons: List<Pokemon>) {
         adapter.setList(pokemons)
-        pokemonRecyclerView?.adapter = adapter
     }
 
     //Local Methods
@@ -73,9 +72,15 @@ class PokemonListFragment: BaseFragment(), PokemonListContract.PokemonView {
     }
 
     private fun configureRecyclerView() {
-        pokemonRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        pokemonRecyclerView?.setHasFixedSize(true)
-        pokemonRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        pokemonRecyclerView.apply {
+            setHasFixedSize(true)
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            clearOnScrollListeners()
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        }
+
+        pokemonRecyclerView.adapter = adapter
     }
 
     private fun makeOrderedPokemon() {

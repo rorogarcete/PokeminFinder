@@ -17,10 +17,11 @@ import kotlinx.android.synthetic.main.fragment_type.view.*
  * Adapter of the [TypeFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class TypeAdapter(private val types: List<Type>, private val mListener: TypeFragment.onClickListener?):
+class TypeAdapter(private val mListener: TypeFragment.onClickListener?):
     RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
+    private var types: List<Type> = emptyList()
 
     init {
         mOnClickListener = View.OnClickListener { v ->
@@ -47,6 +48,12 @@ class TypeAdapter(private val types: List<Type>, private val mListener: TypeFrag
     }
 
     override fun getItemCount(): Int = types.size
+
+    fun setList(types: List<Type>) {
+        this.types = mutableListOf()
+        this.types = types
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val mView: View): RecyclerView.ViewHolder(mView) {
         val txtType: TextView = mView.txt_name_type

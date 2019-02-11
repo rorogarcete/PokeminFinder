@@ -47,13 +47,11 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
         whiteNotificationBar(toolbar)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container_types, TypeFragment.newInstance()).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_types, TypeFragment.newInstance()).commit()
 
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container_pokemons, pokemonListFragment).commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_pokemons, pokemonListFragment).commit()
     }
 
     override fun onResume() {
