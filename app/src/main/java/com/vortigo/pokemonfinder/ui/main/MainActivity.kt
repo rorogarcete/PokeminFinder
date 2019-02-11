@@ -23,7 +23,7 @@ class MainActivity: BaseActivity() {
 
         if (!PokemonFinderApp.sIsSessionActive) {
             PokemonFinderApp.sIsSessionActive = true
-            verStartActivity()
+            openStartActivity()
         } else {
             setupInit()
         }
@@ -51,7 +51,7 @@ class MainActivity: BaseActivity() {
         }
     }
 
-    private fun verStartActivity() {
+    private fun openStartActivity() {
         startActivity(Intent(this, SplashActivity::class.java))
         finish()
     }

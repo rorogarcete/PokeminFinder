@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.fragment_type.view.*
  * Adapter of the [TypeFragment]
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class TypeAdapter(private val types: List<Type>, private val mListener: TypeFragment.onClickListener?): RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
+class TypeAdapter(private val types: List<Type>, private val mListener: TypeFragment.onClickListener?):
+    RecyclerView.Adapter<TypeAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
@@ -29,14 +30,13 @@ class TypeAdapter(private val types: List<Type>, private val mListener: TypeFrag
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_type, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_type, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = types[position]
-        holder.txtType.text = item.name
+        holder.txtType.text = item.name.capitalize()
 
         LoadImage.setImageUrl(holder.imgType, item.thumbnailImage)
 

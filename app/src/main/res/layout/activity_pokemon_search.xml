@@ -16,6 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
         </android.support.v7.widget.Toolbar>
@@ -25,8 +26,7 @@
     <FrameLayout
             android:id="@+id/container_types"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_height="@dimen/frame_type_dim"
             android:layout_below="@+id/appBarLayout"/>
 
     <FrameLayout

@@ -1,7 +1,6 @@
 package com.vortigo.pokemonfinder
 
 import android.app.Application
-import android.support.annotation.VisibleForTesting
 import com.vortigo.pokemonfinder.data.db.PokemonSeed
 import com.vortigo.pokemonfinder.data.prefs.PokemonPreference
 import com.vortigo.pokemonfinder.di.DaggerPokemonComponent
@@ -20,7 +19,6 @@ import timber.log.Timber
 class PokemonFinderApp: Application() {
 
     lateinit var component : PokemonComponent
-        @VisibleForTesting set
 
     override fun onCreate() {
         super.onCreate()

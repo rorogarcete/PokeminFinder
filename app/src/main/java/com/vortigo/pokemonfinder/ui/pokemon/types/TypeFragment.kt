@@ -3,15 +3,16 @@ package com.vortigo.pokemonfinder.ui.pokemon.types
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import com.vortigo.pokemonfinder.PokemonFinderApp
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.models.Type
 import com.vortigo.pokemonfinder.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_type_list.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -26,31 +27,21 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
 
     private var listener: onClickListener? = null
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var typeAdapter: TypeAdapter
-    private lateinit var progressBar: ProgressBar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        retainInstance = true
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_type_list, container, false)
-
-        progressBar = view.findViewById(R.id.progress_indicator)
-
-        recyclerView = view.findViewById(R.id.typesRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.hasFixedSize()
-
-        return view
+       return inflater.inflate(R.layout.fragment_type_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setInjection()
+        configureRecyclerView()
         presenter.attachView(this)
         presenter.getFavoriteTypes()
     }
@@ -79,19 +70,20 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
     }
 
     override fun showProgress() {
-        progressBar.visibility = View.VISIBLE
+        progress_indicator.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progressBar.visibility = View.GONE
+        progress_indicator.visibility = View.GONE
     }
 
-    override fun onEntityError(error: String) { }
+    override fun onEntityError(error: String) {
+        Timber.e(error)
+    }
 
     override fun loadTypes(types: List<Type>) {
         typeAdapter = TypeAdapter(types, listener)
-        typeAdapter.notifyDataSetChanged()
-        recyclerView.adapter = typeAdapter
+        typesRecyclerView.adapter = typeAdapter
     }
 
     //Local Methods
@@ -99,13 +91,15 @@ class TypeFragment: BaseFragment(), TypeContract.TypeView {
         PokemonFinderApp.instance.component.inject(this)
     }
 
-    companion object {
+    private fun configureRecyclerView() {
+        typesRecyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        typesRecyclerView?.setHasFixedSize(true)
+    }
 
+    companion object {
         @JvmStatic
         fun newInstance() : TypeFragment {
-            val fragment = TypeFragment()
-
-            return fragment
+            return TypeFragment()
         }
 
     }

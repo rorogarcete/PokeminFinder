@@ -31,7 +31,7 @@ class SplashActivity: BaseActivity() {
     private fun startPercentMockThread() {
         val runnable = Runnable {
             try {
-                Thread.sleep(3000) //3Seg
+                Thread.sleep(3000)
                 openMainActivity()
             } catch (e: InterruptedException) {
                 e.printStackTrace()

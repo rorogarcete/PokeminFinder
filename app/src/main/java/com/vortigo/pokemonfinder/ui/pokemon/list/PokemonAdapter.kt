@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.vortigo.pokemonfinder.R
 import com.vortigo.pokemonfinder.helper.LoadImage
 import com.vortigo.pokemonfinder.models.Pokemon
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_pokemon.view.*
 
 /**
@@ -37,11 +37,12 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val mContentView: TextView = mView.txt_name_pokemon
-        val imgPokemon: ImageView = mView.img_pokemon
+        val imgPokemon: CircleImageView = mView.img_pokemon
     }
 
     fun setList(pokemonList: List<Pokemon>) {
         this.pokemons = emptyList()
         this.pokemons = pokemonList
+        notifyDataSetChanged()
     }
 }

@@ -12,7 +12,7 @@ import com.vortigo.pokemonfinder.R
  * Base Activity to Application
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

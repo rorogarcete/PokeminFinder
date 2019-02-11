@@ -13,7 +13,7 @@ import com.vortigo.pokemonfinder.R
  * Class Base to Fragment
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-open class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

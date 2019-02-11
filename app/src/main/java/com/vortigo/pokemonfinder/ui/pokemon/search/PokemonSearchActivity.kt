@@ -56,7 +56,6 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         setInjection()
@@ -76,19 +75,20 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_pokemon_search, menu)
 
+        // Associate searchable configuration with the SearchView
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setIconifiedByDefault(true)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                presenter.getPokemonsByFilter(query)
                 return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {
-                presenter.getPokemonsByFilter(query)
+                if (query.isNotBlank()) presenter.getPokemonsByFilter(query)
                 return true
             }
         })
@@ -123,7 +123,6 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
     override fun onClick(item: Type) {
         presenter.getPokemonsByType(item.name)
-
         PokemonPreference().setTypeFavorite(this, item.name)
     }
 
