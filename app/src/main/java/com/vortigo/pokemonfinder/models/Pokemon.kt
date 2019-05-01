@@ -8,10 +8,8 @@ package com.vortigo.pokemonfinder.models
  */
 data class Pokemon (
     var id: Int,
-    //var abilities: Array<String>,
     var detailPageURL: String,
     var weight: Double,
-    //var weakness: Array<String>,
     var number: String,
     var height: Double,
     var collectibles_slug: String,

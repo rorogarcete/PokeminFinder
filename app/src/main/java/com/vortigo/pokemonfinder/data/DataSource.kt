@@ -20,6 +20,8 @@ interface DataSource {
 
     fun getPokemonsByFilter(query: String): Observable<List<Pokemon>>
 
+    fun getPokemonDetailById(id: Int): Observable<Pokemon>
+
     fun saveTrainer(trainer: Trainer): Boolean
 
     fun getTypePokemonFavorite(): Observable<List<Trainer>>

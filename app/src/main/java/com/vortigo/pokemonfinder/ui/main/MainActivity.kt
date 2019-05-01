@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @author rorogarcete
  * @version 0.0.1
  * Main Activity of the Application
- * Copyright 2019 Vortigo Inc. All rights reserved
 */
 class MainActivity: BaseActivity() {
 

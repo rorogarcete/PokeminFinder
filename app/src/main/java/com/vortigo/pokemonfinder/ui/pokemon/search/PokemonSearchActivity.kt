@@ -45,7 +45,9 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        whiteNotificationBar(toolbar)
+//        getSupportActionBar()?.setHomeButtonEnabled(false)      // Disable the button
+        supportActionBar?.setDisplayHomeAsUpEnabled(false) // Remove the left caret
+//        supportActionBar?.setDisplayShowHomeEnabled(false) // Remove the icon
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_types, TypeFragment.newInstance()).commit()
@@ -82,7 +84,8 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                return false
+                if (query.isNotBlank()) presenter.getPokemonsByFilter(query)
+                return true
             }
 
             override fun onQueryTextChange(query: String): Boolean {
@@ -125,15 +128,6 @@ class PokemonSearchActivity: BaseActivity(), PokemonSearchContract.PokemonSearch
     }
 
     // Local Methods
-    private fun whiteNotificationBar(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            var flags = view.getSystemUiVisibility()
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            view.setSystemUiVisibility(flags)
-            window.statusBarColor = Color.WHITE
-        }
-    }
-
     private fun setInjection() {
         PokemonFinderApp.instance.component.inject(this)
     }

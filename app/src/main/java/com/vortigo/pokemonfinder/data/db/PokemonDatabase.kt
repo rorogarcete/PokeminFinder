@@ -64,6 +64,14 @@ class PokemonDatabase: DataSource {
         }.toObservable()
     }
 
+    override fun getPokemonDetailById(id: Int): Observable<Pokemon> {
+        val pokemon = PokemonTable().queryFirst { equalTo("id", id) }?.asFlowable<PokemonTable>()
+
+        return pokemon!!.map {
+            PokemonMapper.toPresenter(it)
+        }.toObservable()
+    }
+
     override fun saveTrainer(trainer: Trainer): Boolean {
         val trainerTable = TrainerMapper.fromPresenter(trainer)
         trainerTable.save()

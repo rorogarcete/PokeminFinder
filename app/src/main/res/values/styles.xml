@@ -5,32 +5,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <!-- declare the theme name that's actually applied in the manifest file -->
+    <style name="BaseAppTheme" parent="AppTheme" />
+
+    <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <!-- Background for the search query section (e.g. EditText) -->
-        <item name="queryBackground">@color/colorWhite</item>
-        <!--<item name="suggestionRowLayout">@layout/search_suggestion_row</item>-->
-        <!-- Background for the actions section (e.g. voice, submit) -->
-        <item name="submitBackground">@color/colorWhite</item>
-        <!-- Close button icon -->
         <item name="closeIcon">@android:drawable/ic_menu_close_clear_cancel</item>
-        <!-- Search button icon -->
         <item name="searchIcon">@android:drawable/ic_menu_search</item>
-        <!-- Go/commit button icon -->
-        <item name="goIcon">@android:drawable/ic_menu_close_clear_cancel</item>
-        <!-- Voice search button icon -->
-        <!--<item name="voiceIcon">...</item>-->
-        <!-- Commit icon shown in the query suggestion row -->
-        <!--<item name="commitIcon">...</item>-->
-        <!-- Layout for query suggestion rows -->
-        <!--<item name="suggestionRowLayout">...</item>-->
+        <item name="queryBackground">@color/colorWhite</item>
+        <item name="submitBackground">@color/colorWhite</item>
+        <item name="searchHintIcon">@android:drawable/ic_menu_search</item>
     </style>
 
     <!--Style for TextView-->

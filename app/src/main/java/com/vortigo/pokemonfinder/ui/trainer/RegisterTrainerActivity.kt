@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_register_trainer.*
  * Activity for register trainer of pokemon
  * Copyright 2019 Vortigo Inc. All rights reserved
  */
-class RegisterTrainerActivity : BaseActivity() {
+class RegisterTrainerActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
