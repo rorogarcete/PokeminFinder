@@ -1,4 +1,4 @@
-# Dev Android Vortigo
+# Pokemon Finder
 
 ## Requirements
 - JDK 1.8
